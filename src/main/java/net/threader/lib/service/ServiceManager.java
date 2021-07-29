@@ -1,6 +1,6 @@
 package net.threader.lib.service;
 
-import net.threader.lib.Registry;
+import net.threader.lib.registry.Registry;
 
 import java.util.Optional;
 

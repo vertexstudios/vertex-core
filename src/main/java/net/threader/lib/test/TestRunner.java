@@ -1,4 +1,4 @@
-package net.threader.lib.testing;
+package net.threader.lib.test;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

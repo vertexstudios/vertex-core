@@ -1,6 +1,6 @@
-package net.threader.lib.testing.impl;
+package net.threader.lib.test.impl;
 
-import net.threader.lib.testing.ITest;
+import net.threader.lib.test.ITest;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;

@@ -1,6 +1,6 @@
 package net.threader.lib.test;
 
-import net.threader.lib.registry.Registry;
+import net.threader.lib.util.Registry;
 import net.threader.lib.service.IService;
 import net.threader.lib.test.impl.Test;
 

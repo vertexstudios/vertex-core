@@ -1,4 +1,4 @@
-package net.threader.lib.registry;
+package net.threader.lib.util;
 
 import java.util.Collections;
 import java.util.HashMap;

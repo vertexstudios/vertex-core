@@ -32,7 +32,7 @@ public class Text implements IText {
         objects.forEach(object -> {
             if(object instanceof String) {
                 AtomicReference<String> currentText = new AtomicReference<>((String) object);
-                variables.forEach((id, value) -> currentText.set(currentText.get().replace("${" + id + "}", value.toString()));
+                variables.forEach((id, value) -> currentText.set(currentText.get().replace("${" + id + "}", value.toString())));
             } else {
                 translated.add(object);
             }

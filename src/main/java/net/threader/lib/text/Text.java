@@ -9,11 +9,9 @@ import org.bukkit.entity.Player;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Text implements IText {
     private List<Object> objects;
@@ -31,25 +29,10 @@ public class Text implements IText {
 
     private List<Object> translateVariables(List<Object> objects) {
         List<Object> translated = new ArrayList<>();
-        objects.stream().forEach(object -> {
+        objects.forEach(object -> {
             if(object instanceof String) {
-                String currentText = (String) object;
-                if(currentText.contains("${")) {
-                    char[] charSequence = currentText.toCharArray();
-                    int firstIndex = currentText.indexOf("${") + 2;
-                    if(currentText.substring(firstIndex).contains("}")) {
-                        StringBuilder var = new StringBuilder();
-                        for(int i = firstIndex; i < charSequence.length; i++) {
-                            if(charSequence[i] == '}') {
-                                if (variables.containsKey(var.toString())) {
-                                    currentText = currentText.replace("${" + var + "}", variables.get(var.toString()).toString());
-                                    break;
-                                }
-                            }
-                            var.append(charSequence[i]);
-                        }
-                    }
-                }
+                AtomicReference<String> currentText = new AtomicReference<>((String) object);
+                variables.forEach((id, value) -> currentText.set(currentText.get().replace("${" + id + "}", value.toString()));
             } else {
                 translated.add(object);
             }

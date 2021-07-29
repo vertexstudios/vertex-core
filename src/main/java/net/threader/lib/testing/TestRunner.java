@@ -1,5 +1,9 @@
 package net.threader.lib.testing;
 
-public @interface TestExecutor {
-    String command();
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Retention(RetentionPolicy.RUNTIME)
+public @interface TestRunner {
+    String id();
 }

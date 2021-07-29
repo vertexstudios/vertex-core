@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import java.lang.reflect.Method;
 import java.util.function.Consumer;
 
-public interface Test {
+public interface ITest {
     String getId();
     Method getMethod();
     Consumer<Player> getConsumer();

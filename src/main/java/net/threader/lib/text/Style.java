@@ -1,21 +1,21 @@
 package net.threader.lib.text;
 
 public enum Style {
-    ITALIC("o"),
-    UNDERLINE("n"),
-    STRIPE("m"),
-    BOLD("l"),
-    OBFUSCATED("k"),
-    RESET("r");
+    ITALIC("italic"),
+    UNDERLINE("underlined"),
+    STRIPE("strikethrough"),
+    BOLD("bold"),
+    OBFUSCATED("obfuscated"),
+    RESET("reset");
 
-    private String code;
+    private String method;
 
-    Style(String code) {
-        this.code = code;
+    Style(String method) {
+        this.method = method;
     }
 
-    public String getCode() {
-        return code;
+    public String getMethod() {
+        return method;
     }
 
 }

@@ -1,4 +1,4 @@
-package net.threader.lib.sql;
+package net.threader.lib.sql.acessor;
 
 import java.io.File;
 import java.sql.DriverManager;

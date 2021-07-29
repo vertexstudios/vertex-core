@@ -1,4 +1,4 @@
-package net.threader.lib.sql;
+package net.threader.lib.sql.acessor;
 
 import org.bukkit.plugin.Plugin;
 

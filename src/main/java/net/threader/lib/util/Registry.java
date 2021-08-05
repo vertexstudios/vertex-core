@@ -8,28 +8,28 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Registry<T> {
+public class Registry<T, U> {
 
-    private Map<String, T> registry = new HashMap<>();
+    private Map<T, U> registry = new HashMap<>();
 
-    public <U extends T> U register(String id, U object) {
+    public <V extends U> V register(T id, U object) {
         registry.put(id, object);
-        return object;
+        return (V) object;
     }
 
-    public Set<Map.Entry<String, T>> entries() {
+    public Set<Map.Entry<T, U>> entries() {
         return registry.entrySet();
     }
 
-    public Set<String> keys() {
+    public Set<T> keys() {
         return registry.keySet();
     }
 
-    public Set<T> values() {
+    public Set<U> values() {
         return new HashSet<>(registry.values());
     }
 
-    public Optional<T> find(String id) {
+    public Optional<U> find(String id) {
         return Optional.ofNullable(registry.get(id));
     }
 

@@ -11,7 +11,7 @@ public class ThreaderLib extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        serviceManager.getRegistry().register("test-service", new TestService());
+        serviceManager.getRegistry().register(TestService.class, new TestService());
     }
 
     public static ThreaderLib instance() {

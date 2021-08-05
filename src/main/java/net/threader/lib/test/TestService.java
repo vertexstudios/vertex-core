@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 
 public class TestService implements IService {
-    private Registry<ITest> registry = new Registry<>();
+    private Registry<String, ITest> registry = new Registry<>();
 
     public ITest load(Method method) {
         TestRunner runner = method.getAnnotation(TestRunner.class);

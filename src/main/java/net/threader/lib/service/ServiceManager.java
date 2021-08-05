@@ -5,9 +5,9 @@ import net.threader.lib.util.Registry;
 import java.util.Optional;
 
 public class ServiceManager {
-    private Registry<IService> registry = new Registry<>();
+    private Registry<Class<?>, IService> registry = new Registry<>();
 
-    public Registry<IService> getRegistry() {
+    public Registry<Class<?>, IService> getRegistry() {
         return registry;
     }
 

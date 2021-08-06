@@ -29,7 +29,7 @@ public class Registry<T, U> {
         return new HashSet<>(registry.values());
     }
 
-    public Optional<U> find(String id) {
+    public Optional<U> find(T id) {
         return Optional.ofNullable(registry.get(id));
     }
 

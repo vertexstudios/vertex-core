@@ -33,4 +33,7 @@ public class Registry<T, U> {
         return Optional.ofNullable(registry.get(id));
     }
 
+    public void remove(T id) {
+        this.find(id).ifPresent(x -> registry.remove(id));
+    }
 }

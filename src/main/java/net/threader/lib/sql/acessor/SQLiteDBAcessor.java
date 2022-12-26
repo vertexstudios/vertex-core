@@ -1,5 +1,7 @@
 package net.threader.lib.sql.acessor;
 
+import org.bukkit.plugin.Plugin;
+
 import java.io.File;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,8 +9,8 @@ import java.util.logging.Level;
 
 public class SQLiteDBAcessor extends DatabaseAcessor {
 
-    public SQLiteDBAcessor(File file) {
-        super("jdbc:sqlite:" + file);
+    public SQLiteDBAcessor(Plugin plugin, File file) {
+        super(plugin, "jdbc:sqlite:" + file);
     }
 
     @Override

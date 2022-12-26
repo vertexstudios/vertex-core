@@ -1,13 +1,15 @@
 package net.threader.lib.sql.acessor;
 
+import org.bukkit.plugin.Plugin;
+
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
 public class MySQLDBAcessor extends DatabaseAcessor {
 
-    public MySQLDBAcessor(String url) {
-        super(url);
+    public MySQLDBAcessor(Plugin plugin, String url) {
+        super(plugin, url);
     }
 
     @Override

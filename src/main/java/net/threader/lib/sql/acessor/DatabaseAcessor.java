@@ -10,8 +10,17 @@ public abstract class DatabaseAcessor {
     protected Plugin plugin;
     protected String url;
 
-    public DatabaseAcessor(String url) {
+    public DatabaseAcessor(Plugin plugin, String url) {
         this.url = url;
+        this.plugin = plugin;
+    }
+
+    public Plugin getPlugin() {
+        return plugin;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public Connection getConnection() {

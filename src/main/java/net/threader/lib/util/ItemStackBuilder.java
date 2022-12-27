@@ -34,7 +34,7 @@ public class ItemStackBuilder {
     }
 
     public ItemStackBuilder lore(String... lore) {
-        this.lore = Arrays.asList(lore);
+        this.lore.addAll(Arrays.asList(lore));
         return this;
     }
 

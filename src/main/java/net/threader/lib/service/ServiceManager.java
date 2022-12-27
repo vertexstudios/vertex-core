@@ -12,9 +12,6 @@ public class ServiceManager {
     }
 
     public <T extends IService> Optional<T> getService(Class<T> clazz) {
-        return registry.values().stream()
-                .filter(x -> x.getClass().isAssignableFrom(clazz))
-                .map(clazz::cast)
-                .findFirst();
+        return (Optional<T>) registry.find(clazz);
     }
 }

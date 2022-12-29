@@ -1,2 +1,3 @@
 rootProject.name = 'threadly-core'
 include('common')
+include('test-plugin')

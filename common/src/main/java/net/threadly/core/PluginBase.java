@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.UUID;
 
-public abstract class PluginBase<T> extends JavaPlugin {
+public abstract class PluginBase extends JavaPlugin {
 
     protected ServiceManager serviceManager;
     private static JavaPlugin instance;

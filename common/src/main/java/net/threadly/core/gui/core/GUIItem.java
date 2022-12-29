@@ -1,4 +1,4 @@
-package net.threadly.core.gui;
+package net.threadly.core.gui.core;
 
 import org.bukkit.inventory.ItemStack;
 

@@ -8,6 +8,8 @@ import net.threadly.core.conversor.TypeConversor;
 import net.threadly.core.service.IService;
 import net.threadly.core.util.Pair;
 import net.threadly.core.util.Registry;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -49,6 +51,16 @@ public class DefaultCommandService implements IService {
                 String[] newArgs = current.substring(spec.getPath().length() + 1, spec.getPath().length() - 1).trim().split(" ");
                 Command command = spec.getCommand();
 
+                if(command.playerOnly() && !(sender instanceof Player)) {
+                    sender.sendMessage(ChatColor.RED + "This command is only for players.");
+                    return false;
+                }
+
+                if(command.permission().equals("") && sender.hasPermission(command.permission())) {
+                    sender.sendMessage(ChatColor.RED + "You don't have permission for that.");
+                    return false;
+                }
+
                 AtomicInteger index = new AtomicInteger();
                 Map<Integer, Command.CommandParam> paramMap = Stream.of(spec.getCommand().params())
                         .collect(Collectors.toMap(i -> index.getAndIncrement(), Function.identity()));
@@ -57,8 +69,11 @@ public class DefaultCommandService implements IService {
                         .filter(param -> param.isAnnotationPresent(CmdParam.class))
                         .map(param -> param.getAnnotation(CmdParam.class)).collect(Collectors.toList());
 
-                int argsIndex = 0;
-                Object[] orderedArgs = new Object[newArgs.length];
+                Object[] orderedArgs = new Object[newArgs.length + 1];
+                orderedArgs[0] = sender;
+
+                int argsIndex = 1;
+
                 for (CmdParam param : params) {
                     Pair<Integer, Command.CommandParam> correspondent = paramMap.entrySet().stream()
                             .filter(entry -> entry.getValue().key().equalsIgnoreCase(param.value()))

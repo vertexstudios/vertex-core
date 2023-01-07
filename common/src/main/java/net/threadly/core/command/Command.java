@@ -9,12 +9,16 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Command {
     String usage();
+
     CommandParam[] params();
+
+    String permission() default "";
+
+    boolean playerOnly() default false;
 
     @interface CommandParam {
         String key();
         Class<?> type();
-
         String conversor();
     }
 

@@ -1,23 +1,19 @@
 plugins {
     id 'java'
 }
+compileJava {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
 
-allprojects {
-    apply plugin: 'java'
+repositories {
+    maven {
+        url "https://hub.spigotmc.org/nexus/content/repositories/snapshots"
+    }
+    mavenCentral()
+}
 
-    compileJava {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
-    }
-
-    repositories {
-        maven {
-            url "https://hub.spigotmc.org/nexus/content/repositories/snapshots"
-        }
-        mavenCentral()
-    }
-    dependencies {
-        implementation "org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT"
-        implementation 'com.google.guava:guava:30.0-jre'
-    }
+dependencies {
+    implementation "org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT"
+    implementation 'com.google.guava:guava:30.0-jre'
 }

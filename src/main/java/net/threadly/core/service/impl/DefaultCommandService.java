@@ -5,6 +5,7 @@ import net.threadly.core.command.CmdParam;
 import net.threadly.core.command.Command;
 import net.threadly.core.command.CommandSpec;
 import net.threadly.core.conversor.TypeConversor;
+import net.threadly.core.service.ICommandService;
 import net.threadly.core.service.IService;
 import net.threadly.core.util.Pair;
 import net.threadly.core.util.Registry;
@@ -19,7 +20,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class DefaultCommandService implements IService {
+public class DefaultCommandService implements ICommandService {
     private Registry<String, CommandSpec> commands = new Registry<>();
 
     public Optional<CommandSpec> getCommand(String input) {

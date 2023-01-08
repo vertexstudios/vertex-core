@@ -11,6 +11,7 @@ import net.threadly.core.util.Pair;
 import net.threadly.core.util.Registry;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -35,11 +36,11 @@ public class DefaultCommandService implements ICommandService {
         return found;
     }
 
-    public void register() {
+    public void register(JavaPlugin plugin, Registry<String, TypeConversor<?,?>> conversors) {
         Set<String> root = commands.keys().stream().map(x -> x.split(" ")[0])
                 .collect(Collectors.toSet());
         for (String cmd : root) {
-            PluginBase.instance().getCommand(cmd).setExecutor((sender, c, label, args) -> {
+            plugin.getCommand(cmd).setExecutor((sender, c, label, args) -> {
                 String current = cmd + " " + String.join(" ", args);
 
                 Optional<CommandSpec> found = getCommand(current);
@@ -80,7 +81,7 @@ public class DefaultCommandService implements ICommandService {
                             .filter(entry -> entry.getValue().key().equalsIgnoreCase(param.value()))
                             .map(entry -> new Pair<>(entry.getKey(), entry.getValue())).findFirst().get();
 
-                    TypeConversor conversor = PluginBase.getConversors().find(correspondent.getSecond().conversor()).get();
+                    TypeConversor conversor = conversors.find(correspondent.getSecond().conversor()).get();
 
                     String passed = newArgs[correspondent.getFirst()];
                     Object value = conversor.convert(passed);

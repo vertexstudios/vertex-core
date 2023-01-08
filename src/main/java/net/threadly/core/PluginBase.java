@@ -15,14 +15,13 @@ import java.util.UUID;
 public abstract class PluginBase extends JavaPlugin {
 
     protected ServiceManager serviceManager;
-    private static JavaPlugin instance;
 
-    private static Registry<String, TypeConversor<?,?>> conversors;
+    protected Registry<String, TypeConversor<?,?>> conversors;
 
     @Override
     public void onEnable() {
-        instance = getInstance();
         this.serviceManager = new ServiceManager();
+
         this.serviceManager.getRegistry().register(ICommandService.class, new DefaultCommandService());
 
         conversors = new Registry<>();
@@ -34,22 +33,18 @@ public abstract class PluginBase extends JavaPlugin {
 
         init();
 
-        this.serviceManager.getService(ICommandService.class).get().register();
+        this.serviceManager.getService(ICommandService.class).get().register(this, conversors);
     }
 
     public ServiceManager getServiceManager() {
         return serviceManager;
     }
 
-    public static Registry<String, TypeConversor<?, ?>> getConversors() {
+    public Registry<String, TypeConversor<?, ?>> getConversors() {
         return conversors;
     }
 
     public abstract JavaPlugin getInstance();
-
-    public static JavaPlugin instance() {
-        return instance;
-    }
 
     public void init() {
 

@@ -44,8 +44,6 @@ public abstract class PluginBase extends JavaPlugin {
         return conversors;
     }
 
-    public abstract JavaPlugin getInstance();
-
     public void init() {
 
     }

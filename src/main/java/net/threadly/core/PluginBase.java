@@ -25,6 +25,8 @@ public abstract class PluginBase extends JavaPlugin {
         this.serviceManager = new ServiceManager();
         this.serviceManager.getRegistry().register(ICommandService.class, new DefaultCommandService());
 
+        conversors = new Registry<>();
+
         conversors.register("string-to-int", ((t) -> Integer.parseInt((String) t)));
         conversors.register("string-to-boolean", ((t) -> Boolean.parseBoolean((String) t)));
         conversors.register("name-to-player", ((t) -> Bukkit.getPlayer((String) t)));

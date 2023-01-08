@@ -8,5 +8,5 @@ import java.util.Set;
 public interface ICommandService extends IService {
     Optional<CommandSpec> getCommand(String input);
     void register();
-    Set<CommandSpec> load(Class<?> clazz);
+    void load(Class<?> clazz);
 }

@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface ICommandService extends IService {
-    Optional<CommandSpec> getCommand(String input);
     void register(JavaPlugin plugin, Registry<String, TypeConversor<?,?>> conversors);
     void load(Class<?> clazz);
 }

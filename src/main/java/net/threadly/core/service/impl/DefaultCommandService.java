@@ -24,33 +24,33 @@ import java.util.stream.Stream;
 public class DefaultCommandService implements ICommandService {
     private Registry<String, CommandSpec> commands = new Registry<>();
 
-    public Optional<CommandSpec> getCommand(String input) {
-        Optional<CommandSpec> found = Optional.empty();
-        String current = "";
-        for (String arg : input.split(" ")) {
-            if (!commands.keys().contains(current + " " + arg)) {
-                break;
-            }
-            found = Optional.of(commands.find(current + " " + arg).get());
-        }
-        return found;
-    }
 
     public void register(JavaPlugin plugin, Registry<String, TypeConversor<?,?>> conversors) {
-        Set<String> root = commands.keys().stream().map(x -> x.split(" ")[0])
+        Set<String> root = commands.keys().stream().map(x ->  x.split(" ")[0])
                 .collect(Collectors.toSet());
         for (String cmd : root) {
             plugin.getCommand(cmd).setExecutor((sender, c, label, args) -> {
-                String current = cmd + " " + String.join(" ", args);
+                String fullCmd = cmd + " " + String.join(" ", args).trim();
+                StringBuilder current = new StringBuilder(cmd);
 
-                Optional<CommandSpec> found = getCommand(current);
+                Optional<CommandSpec> found = commands.find(cmd);
+
+                for(String arg : args) {
+                    current.append(" ").append(arg);
+                    Optional<CommandSpec> next = commands.find(current.toString().trim());
+                    if(!next.isPresent()) {
+                        break;
+                    }
+                    found = next;
+                }
+
                 if (!found.isPresent()) {
                     return true;
                 }
 
                 CommandSpec spec = found.get();
 
-                String[] newArgs = current.substring(spec.getPath().length() + 1, spec.getPath().length() - 1).trim().split(" ");
+                String[] newArgs = fullCmd.substring(spec.getPath().length(), fullCmd.length()-1).trim().split(" ");
                 Command command = spec.getCommand();
 
                 if(command.playerOnly() && !(sender instanceof Player)) {
@@ -58,7 +58,7 @@ public class DefaultCommandService implements ICommandService {
                     return false;
                 }
 
-                if(command.permission().equals("") && sender.hasPermission(command.permission())) {
+                if(!command.permission().equals("") && sender.hasPermission(command.permission())) {
                     sender.sendMessage(ChatColor.RED + "You don't have permission for that.");
                     return false;
                 }
@@ -107,7 +107,7 @@ public class DefaultCommandService implements ICommandService {
                     Command command = method.getAnnotation(Command.class);
                     String path = Arrays.stream(command.usage().split(" "))
                             .filter(word -> !word.contains("<") && !word.contains(">") && !word.contains("[") && !word.contains("]"))
-                            .reduce("", String::concat);
+                            .reduce("", (s1, s2) -> s1 + " " + s2).trim();
                     commands.register(path, new CommandSpec(path, method, command));
                 });
     }

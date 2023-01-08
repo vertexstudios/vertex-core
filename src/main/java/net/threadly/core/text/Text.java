@@ -42,43 +42,4 @@ public class Text {
         });
     }
 
-    public static class Builder {
-        List<String> lines = new ArrayList<>();
-        private Map<String, Object> placeholders = new HashMap<>();
-
-        public Builder addLine(String line) {
-            lines.add(line);
-            return this;
-        }
-
-        public Builder addLines(String... lines) {
-            this.lines.addAll(Arrays.asList(lines));
-            return this;
-        }
-
-        public Builder addLines(List<String> lines) {
-            this.lines.addAll(lines);
-            return this;
-        }
-
-        public Builder fromConfig(String path, Plugin plugin) {
-            FileConfiguration config = plugin.getConfig();
-            path = "message." + path;
-            if(config.get(path) instanceof List) {
-                addLines(config.getStringList(path));
-            } else {
-                addLine(config.getString(path));
-            }
-            return this;
-        }
-
-        public Builder setPlaceholder(String var, Object value) {
-            placeholders.put(var, value);
-            return this;
-        }
-
-        public Text build() {
-            return new Text(placeholders, lines);
-        }
-    }
 }

@@ -21,7 +21,6 @@ public abstract class PluginBase extends JavaPlugin {
     @Override
     public void onEnable() {
         this.serviceManager = new ServiceManager();
-
         this.serviceManager.getRegistry().register(ICommandService.class, new DefaultCommandService());
 
         conversors = new Registry<>();

@@ -20,11 +20,14 @@ public class SpigotText extends Text {
     }
 
     public void colorizeLines() {
+        System.out.println("Chamou o spigotcolor");
         lines = lines.stream().map(line -> {
             Matcher matcher = HEX_PATTERN.matcher(ChatColor.translateAlternateColorCodes('&', line));
             StringBuffer buffer = new StringBuffer();
 
             while (matcher.find()) {
+                System.out.println("Cor: " + matcher.group());
+                System.out.println("Cor: " + matcher.group(1));
                 matcher.appendReplacement(buffer, ChatColor.of(matcher.group(1)).toString());
             }
 

@@ -1,5 +1,0 @@
-name: ThreadlyCoreTest
-main: net.threadly.core.testplugin.Main
-version: 1.0
-commands:
-  testcmd:

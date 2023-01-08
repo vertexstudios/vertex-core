@@ -37,9 +37,7 @@ public class Text {
 
     public void send(Player player) {
         colorizeLines();
-        lines.forEach(line -> {
-            player.sendMessage(replaceVariables(line));
-        });
+        lines.forEach(line -> player.sendMessage(replaceVariables(line)));
     }
 
 }

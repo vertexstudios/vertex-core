@@ -12,23 +12,24 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.Inventory;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class Page implements Listener {
 
-    private GUIHolder parent;
-    private Inventory inventory;
-    private Map<Integer, GUIItem> items = new HashMap<>();
-    private String title;
+    protected GUIHolder parent;
+    protected Inventory inventory;
+    protected Map<Integer, GUIItem> items = new HashMap<>();
+    protected String title;
 
     public Page(GUIHolder parent, String title, List<GUIItem> itemList, Rows rows) {
         this.parent = parent;
         this.title = title;
         itemList.forEach(item -> items.put(item.getSlot(), item));
         this.inventory = Bukkit.createInventory(null, rows.slots, title);
+    }
+
+    public List<GUIItem> build() {
+        return new ArrayList<>();
     }
 
     public void openInventory() {

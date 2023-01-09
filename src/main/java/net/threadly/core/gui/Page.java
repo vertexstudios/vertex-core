@@ -14,23 +14,21 @@ import org.bukkit.inventory.Inventory;
 
 import java.util.*;
 
-public class Page implements Listener {
+public abstract class Page implements Listener {
 
     protected GUIHolder parent;
     protected Inventory inventory;
     protected Map<Integer, GUIItem> items = new HashMap<>();
     protected String title;
 
-    public Page(GUIHolder parent, String title, List<GUIItem> itemList, Rows rows) {
+    public Page(GUIHolder parent, String title, Rows rows) {
         this.parent = parent;
         this.title = title;
-        itemList.forEach(item -> items.put(item.getSlot(), item));
+        build().forEach(item -> items.put(item.getSlot(), item));
         this.inventory = Bukkit.createInventory(null, rows.slots, title);
     }
 
-    public List<GUIItem> build() {
-        return new ArrayList<>();
-    }
+    public abstract List<GUIItem> build();
 
     public void openInventory() {
         putItems();

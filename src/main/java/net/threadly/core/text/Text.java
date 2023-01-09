@@ -16,9 +16,14 @@ public class Text {
     public Text(Map<String, Object> placeholders, List<String> lines) {
         this.placeholders = placeholders;
         this.lines = lines;
+        colorizeLines();
     }
 
     public Text() {
+    }
+
+    public List<String> getLines() {
+        return lines;
     }
 
     public void colorizeLines() {
@@ -36,7 +41,6 @@ public class Text {
     }
 
     public void send(Player player) {
-        colorizeLines();
         lines.forEach(line -> player.sendMessage(replaceVariables(line)));
     }
 

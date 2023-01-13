@@ -24,7 +24,7 @@ public abstract class Page implements Listener {
     public Page(GUIHolder parent, String title, Rows rows) {
         this.parent = parent;
         this.title = title;
-        build().forEach(item -> items.put(item.getSlot(), item));
+        this.build().forEach(item -> items.put(item.getSlot(), item));
         this.inventory = Bukkit.createInventory(null, rows.slots, title);
     }
 

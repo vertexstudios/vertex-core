@@ -19,8 +19,8 @@ public @interface Command {
 
     @interface CommandParam {
         String key();
-        Class<?> type();
-        String conversor();
+        Class<?> type() default String.class;
+        String conversor() default "string-to-string";
     }
 
 }

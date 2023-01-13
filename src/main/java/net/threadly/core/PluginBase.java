@@ -29,6 +29,7 @@ public abstract class PluginBase extends JavaPlugin {
         conversors.register("string-to-boolean", ((t) -> Boolean.parseBoolean((String) t)));
         conversors.register("name-to-player", ((t) -> Bukkit.getPlayer((String) t)));
         conversors.register("uuid-to-player", ((t) -> Bukkit.getPlayer((UUID) t)));
+        conversors.register("string-to-string", ((t) -> (t)));
 
         init();
 

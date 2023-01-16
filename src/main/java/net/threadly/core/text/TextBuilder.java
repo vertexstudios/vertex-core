@@ -37,6 +37,15 @@ public class TextBuilder {
         return this;
     }
 
+    public TextBuilder fromConfig(String path, FileConfiguration config) {
+        if(config.get(path) instanceof List) {
+            addLines(config.getStringList(path));
+        } else {
+            addLine(config.getString(path));
+        }
+        return this;
+    }
+
     public TextBuilder setPlaceholder(String var, Object value) {
         placeholders.put(var, value);
         return this;

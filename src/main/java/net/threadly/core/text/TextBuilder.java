@@ -1,7 +1,7 @@
 package net.threadly.core.text;
 
+import net.threadly.core.PluginContainer;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.Plugin;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -26,8 +26,8 @@ public class TextBuilder {
         return this;
     }
 
-    public TextBuilder fromConfig(String path, Plugin plugin) {
-        FileConfiguration config = plugin.getConfig();
+    public TextBuilder fromConfig(String path) {
+        FileConfiguration config = PluginContainer.getCurrentPlugin().getConfig();
         path = "message." + path;
         if(config.get(path) instanceof List) {
             addLines(config.getStringList(path));

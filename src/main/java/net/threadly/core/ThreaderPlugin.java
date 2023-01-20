@@ -36,7 +36,7 @@ public abstract class ThreaderPlugin extends JavaPlugin {
 
         init();
 
-        this.serviceManager.getService(ICommandService.class).get().register(this, conversors);
+        this.serviceManager.getService(ICommandService.class).get().register(conversors);
     }
 
     @Override

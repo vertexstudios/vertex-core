@@ -1,8 +1,8 @@
 package net.threadly.core.test;
 
-import net.threadly.core.util.Registry;
 import net.threadly.core.service.IService;
 import net.threadly.core.test.impl.Test;
+import net.threadly.core.util.Registry;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

@@ -1,5 +1,6 @@
 package net.threadly.core.sql.acessor;
 
+import net.threadly.core.PluginContainer;
 import org.bukkit.plugin.Plugin;
 
 import java.sql.Connection;
@@ -10,9 +11,9 @@ public abstract class DatabaseAcessor {
     protected Plugin plugin;
     protected String url;
 
-    public DatabaseAcessor(Plugin plugin, String url) {
+    public DatabaseAcessor(String url) {
         this.url = url;
-        this.plugin = plugin;
+        this.plugin = PluginContainer.getCurrentPlugin();
     }
 
     public Plugin getPlugin() {

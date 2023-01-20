@@ -8,8 +8,8 @@ import java.util.logging.Level;
 
 public class MySQLDBAcessor extends DatabaseAcessor {
 
-    public MySQLDBAcessor(Plugin plugin, String url) {
-        super(plugin, url);
+    public MySQLDBAcessor(String url) {
+        super(url);
     }
 
     @Override

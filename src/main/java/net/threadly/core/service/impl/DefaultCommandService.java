@@ -1,5 +1,6 @@
 package net.threadly.core.service.impl;
 
+import net.threadly.core.PluginContainer;
 import net.threadly.core.command.CmdParam;
 import net.threadly.core.command.Command;
 import net.threadly.core.command.CommandSpec;
@@ -9,7 +10,6 @@ import net.threadly.core.util.Pair;
 import net.threadly.core.util.Registry;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -23,11 +23,11 @@ public class DefaultCommandService implements ICommandService {
     private Registry<String, CommandSpec> commands = new Registry<>();
 
 
-    public void register(JavaPlugin plugin, Registry<String, TypeConversor<?,?>> conversors) {
+    public void register(Registry<String, TypeConversor<?,?>> conversors) {
         Set<String> root = commands.keys().stream().map(x ->  x.split(" ")[0])
                 .collect(Collectors.toSet());
         for (String cmd : root) {
-            plugin.getCommand(cmd).setExecutor((sender, c, label, args) -> {
+            PluginContainer.getCurrentPlugin().getCommand(cmd).setExecutor((sender, c, label, args) -> {
                 String fullCmd = cmd + " " + String.join(" ", args).trim();
                 StringBuilder current = new StringBuilder(cmd);
 

@@ -9,8 +9,8 @@ import java.util.logging.Level;
 
 public class SQLiteDBAcessor extends DatabaseAcessor {
 
-    public SQLiteDBAcessor(Plugin plugin, File file) {
-        super(plugin, "jdbc:sqlite:" + file);
+    public SQLiteDBAcessor(File file) {
+        super("jdbc:sqlite:" + file);
     }
 
     @Override

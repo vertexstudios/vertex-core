@@ -1,23 +1,21 @@
 package net.threadly.core.gui;
 
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 public abstract class PaginatedGUI extends GUIHolder {
     private List<Page> pages;
     private int index = 0;
     private boolean loop;
 
-    public PaginatedGUI(Player holder, Plugin plugin, boolean loop) {
-        super(holder, plugin);
+    public PaginatedGUI(Player holder, boolean loop) {
+        super(holder);
         this.loop = loop;
     }
 
-    public PaginatedGUI(Player holder, Plugin plugin, int currentIndex, boolean loop) {
-        super(holder, plugin);
+    public PaginatedGUI(Player holder, int currentIndex, boolean loop) {
+        super(holder);
         this.index = currentIndex;
         this.loop = loop;
     }

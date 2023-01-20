@@ -1,8 +1,6 @@
 package net.threadly.core.command;
 
 import java.lang.reflect.Method;
-import java.util.Map;
-import java.util.Optional;
 
 public class CommandSpec {
     private String path;

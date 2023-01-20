@@ -1,5 +1,6 @@
 package net.threadly.core.gui;
 
+import net.threadly.core.PluginContainer;
 import net.threadly.core.gui.core.GUIItem;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -12,7 +13,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.Inventory;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public abstract class Page implements Listener {
 
@@ -37,7 +41,7 @@ public abstract class Page implements Listener {
         }
         this.parent.getHolder().openInventory(this.inventory);
         try {
-            Bukkit.getPluginManager().registerEvents(this, this.parent.getPlugin());
+            Bukkit.getPluginManager().registerEvents(this, PluginContainer.getCurrentPlugin());
         } catch (Exception e) {
             this.parent.getHolder().closeInventory();
             this.parent.getHolder().sendMessage("Error while trying to register the inventory.");
@@ -77,7 +81,7 @@ public abstract class Page implements Listener {
 
     @EventHandler
     public void pluginDisable(PluginDisableEvent event) {
-        if (event.getPlugin() != this.parent.getPlugin())
+        if (event.getPlugin() != PluginContainer.getCurrentPlugin())
             return;
         Player player = Bukkit.getPlayer(this.parent.getHolderUUID());
         if (player != null)

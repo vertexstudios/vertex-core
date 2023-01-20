@@ -1,12 +1,10 @@
 package net.threadly.core.service.impl;
 
-import net.threadly.core.PluginBase;
 import net.threadly.core.command.CmdParam;
 import net.threadly.core.command.Command;
 import net.threadly.core.command.CommandSpec;
 import net.threadly.core.conversor.TypeConversor;
 import net.threadly.core.service.ICommandService;
-import net.threadly.core.service.IService;
 import net.threadly.core.util.Pair;
 import net.threadly.core.util.Registry;
 import org.bukkit.ChatColor;

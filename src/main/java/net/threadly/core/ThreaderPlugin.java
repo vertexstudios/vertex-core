@@ -6,17 +6,20 @@ import net.threadly.core.service.ServiceManager;
 import net.threadly.core.service.impl.DefaultCommandService;
 import net.threadly.core.util.Registry;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.UUID;
 
-public abstract class PluginBase extends JavaPlugin {
+public abstract class ThreaderPlugin extends JavaPlugin {
 
     protected ServiceManager serviceManager;
 
     protected Registry<String, TypeConversor<?,?>> conversors;
+
+    @Override
+    public void onLoad() {
+        PluginContainer.setCurrentPlugin(this);
+    }
 
     @Override
     public void onEnable() {
@@ -36,6 +39,11 @@ public abstract class PluginBase extends JavaPlugin {
         this.serviceManager.getService(ICommandService.class).get().register(this, conversors);
     }
 
+    @Override
+    public void onDisable() {
+        shutdown();
+    }
+
     public ServiceManager getServiceManager() {
         return serviceManager;
     }
@@ -45,6 +53,10 @@ public abstract class PluginBase extends JavaPlugin {
     }
 
     public void init() {
+
+    }
+
+    public void shutdown() {
 
     }
 

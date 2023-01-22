@@ -1,3 +1,3 @@
-rootProject.name = 'threadly-core'
+rootProject.name = 'bit-core'
 include('common')
 include('test-plugin')

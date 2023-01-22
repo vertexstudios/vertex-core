@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.UUID;
 
-public abstract class ThreaderPlugin extends JavaPlugin {
+public abstract class BitPlugin extends JavaPlugin {
 
     protected ServiceManager serviceManager;
 

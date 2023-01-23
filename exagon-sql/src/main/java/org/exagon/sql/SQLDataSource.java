@@ -22,7 +22,7 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class SQL implements SQLAcessor {
+public class SQLDataSource implements SQLAcessor {
 
     @NotNull
     @Getter
@@ -46,10 +46,10 @@ public class SQL implements SQLAcessor {
     private static final int MINIMUM_IDLE_POOLS = Math.min(MAXIMUM_POOLS, 10);
     public static final long TIMED_OUT_AFTER = TimeUnit.SECONDS.toMillis(10);
 
-    public SQL(@Nullable String driver,
-               @Nullable String url,
-               @NotNull String protocol,
-               @NotNull SQLCredentials credentials) {
+    public SQLDataSource(@Nullable String driver,
+                         @Nullable String url,
+                         @NotNull String protocol,
+                         @NotNull SQLCredentials credentials) {
 
         HikariConfig hikari = new HikariConfig();
 

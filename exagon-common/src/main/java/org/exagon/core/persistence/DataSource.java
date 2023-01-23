@@ -1,2 +1,4 @@
-package org.exagon.core.persistence;public interface DataSource {
+package org.exagon.core.persistence;
+
+public interface DataSource {
 }

@@ -17,8 +17,6 @@ subprojects {
 
         implementation 'com.google.guava:guava:30.0-jre'
 
-        implementation project(':exagon-common')
-
         implementation 'org.jetbrains:annotations:23.0.0'
 
         compileOnly 'org.projectlombok:lombok:1.18.24'

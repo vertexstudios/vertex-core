@@ -1,3 +1,4 @@
 rootProject.name = 'exagon-core'
 include 'exagon-common'
 include 'exagon-sql'
+include 'exagon-mongo'

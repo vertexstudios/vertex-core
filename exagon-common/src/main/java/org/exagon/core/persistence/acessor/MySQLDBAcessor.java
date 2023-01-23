@@ -1,14 +1,13 @@
-package org.exagon.core.sql.acessor;
+package org.exagon.core.persistence.acessor;
 
-import java.io.File;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
-public class SQLiteDBAcessor extends DatabaseAcessor {
+public class MySQLDBAcessor extends DatabaseAcessor {
 
-    public SQLiteDBAcessor(File file) {
-        super("jdbc:sqlite:" + file);
+    public MySQLDBAcessor(String url) {
+        super(url);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package org.exagon.core.sql.acessor;
+package org.exagon.core.persistence.acessor;
 
 import org.exagon.core.PluginContainer;
 import org.bukkit.plugin.Plugin;

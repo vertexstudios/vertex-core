@@ -1,19 +1,31 @@
-plugins {
-    id 'java'
-}
-compileJava {
-    sourceCompatibility = '1.8'
-    targetCompatibility = '1.8'
-}
+subprojects {
+    apply plugin:'java'
 
-repositories {
-    maven {
-        url "https://hub.spigotmc.org/nexus/content/repositories/snapshots"
+    compileJava {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
-    mavenCentral()
-}
 
-dependencies {
-    implementation "org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT"
-    implementation 'com.google.guava:guava:30.0-jre'
+    repositories {
+        maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots" }
+        maven { url "https://jitpack.io" }
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation "org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT"
+
+        implementation 'com.google.guava:guava:30.0-jre'
+
+        implementation project(':exagon-common')
+
+        implementation 'org.jetbrains:annotations:23.0.0'
+
+        compileOnly 'org.projectlombok:lombok:1.18.24'
+        annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+        implementation group: 'com.zaxxer', name: 'HikariCP', version: '2.3.2'
+
+        implementation group: 'me.lucko', name: 'sql-streams', version: '1.0.0'
+    }
 }

@@ -1,4 +1,4 @@
-package org.exagon.core.sql;
+package org.exagon.core.persistence;
 
 import java.io.BufferedReader;
 import java.io.IOException;

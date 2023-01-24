@@ -11,6 +11,23 @@ repositories {
 
 subprojects {
     apply plugin:'java'
+    apply plugin: 'maven-publish'
+
+    java {
+        withSourcesJar()
+        withJavadocJar()
+    }
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId project.group
+                artifactId project.name
+                version project.version
+                from components.java
+            }
+        }
+    }
 
     repositories {
         maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots" }

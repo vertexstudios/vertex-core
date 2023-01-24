@@ -16,6 +16,11 @@ task relocateShadowJar(type: ConfigureShadowRelocation) {
     prefix = 'org.exagon.sql.libs'
 }
 
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
 shadowJar {
     archiveName = "$baseName-$version.$extension"
     minimize()

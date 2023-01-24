@@ -26,6 +26,14 @@ artifacts {
     archives shadowJar
 }
 
+publishing {
+    publications {
+        shadow(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
 dependencies {
     implementation project(':exagon-common')
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '2.3.2'

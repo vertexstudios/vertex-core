@@ -21,6 +21,26 @@ shadowJar {
     dependsOn(relocateShadowJar)
 }
 
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId project.group
+            artifactId project.name
+            version project.version
+            from components.java
+            artifact sourceJar {
+                classifier "sources"
+            }
+            artifact shadowJar
+        }
+    }
+}
+
 artifacts {
     archives shadowJar
 }

@@ -33,10 +33,7 @@ java {
 
 publishing {
     publications {
-        maven(MavenPublication) {
-            groupId project.group
-            artifactId project.name
-            version project.version
+        shadow(MavenPublication) {
             from components.java
             artifact shadowJar
         }

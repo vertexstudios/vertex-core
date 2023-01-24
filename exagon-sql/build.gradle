@@ -31,6 +31,3 @@ dependencies {
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '2.3.2'
     implementation group: 'me.lucko', name: 'sql-streams', version: '1.0.0'
 }
-
-tasks.jar.enabled = false
-tasks.assemble.dependsOn tasks.shadowJar

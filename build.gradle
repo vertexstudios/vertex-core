@@ -1,10 +1,16 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'java'
+}
+
+repositories {
+    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots" }
+    maven { url "https://jitpack.io" }
+    mavenCentral()
+}
+
 subprojects {
     apply plugin:'java'
-
-    compileJava {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
-    }
 
     repositories {
         maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots" }
@@ -13,17 +19,30 @@ subprojects {
     }
 
     dependencies {
-        implementation "org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT"
-
-        implementation 'com.google.guava:guava:30.0-jre'
-
-        implementation 'org.jetbrains:annotations:23.0.0'
-
+        compileOnly "org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT"
+        compileOnly  'com.google.guava:guava:30.0-jre'
+        compileOnly  'org.jetbrains:annotations:23.0.0'
         compileOnly 'org.projectlombok:lombok:1.18.24'
         annotationProcessor 'org.projectlombok:lombok:1.18.24'
-
-        implementation group: 'com.zaxxer', name: 'HikariCP', version: '2.3.2'
-
-        implementation group: 'me.lucko', name: 'sql-streams', version: '1.0.0'
     }
 }
+
+shadowJar {
+    archiveFileName = "exagon-core.jar"
+}
+
+jar {
+    archiveFileName = "exagon-core.jar"
+    from {
+        subprojects.collect { it.sourceSets.main.output }
+    }
+}
+
+dependencies {
+    implementation project(":exagon-common")
+    implementation project(path: ':exagon-sql', configuration: 'shadow')
+    implementation project(":exagon-mongo")
+}
+
+tasks.jar.enabled = false
+tasks.assemble.dependsOn tasks.shadowJar

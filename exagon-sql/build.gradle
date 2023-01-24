@@ -22,9 +22,13 @@ shadowJar {
     dependsOn(relocateShadowJar)
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
 java {
     withSourcesJar()
-    withJavadocJar()
 }
 
 publishing {
@@ -34,9 +38,6 @@ publishing {
             artifactId project.name
             version project.version
             from components.java
-            artifact sourceJar {
-                classifier "sources"
-            }
             artifact shadowJar
         }
     }

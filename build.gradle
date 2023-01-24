@@ -1,16 +1,25 @@
-plugins {
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'java'
-}
-
-repositories {
-    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots" }
-    maven { url "https://jitpack.io" }
-    mavenCentral()
-}
-
 subprojects {
-    apply plugin:'java'
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+
+    sourceCompatibility = 1.8 // java 8
+    targetCompatibility = 1.8
+
+    java {
+        withSourcesJar()
+        withJavadocJar()
+    }
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId project.group
+                artifactId project.name
+                version project.version
+                from components.java
+            }
+        }
+    }
 
     repositories {
         maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots" }
@@ -26,23 +35,3 @@ subprojects {
         annotationProcessor 'org.projectlombok:lombok:1.18.24'
     }
 }
-
-shadowJar {
-    archiveFileName = "exagon-core.jar"
-}
-
-jar {
-    archiveFileName = "exagon-core.jar"
-    from {
-        subprojects.collect { it.sourceSets.main.output }
-    }
-}
-
-dependencies {
-    implementation project(":exagon-common")
-    implementation project(path: ':exagon-sql', configuration: 'shadow')
-    implementation project(":exagon-mongo")
-}
-
-tasks.jar.enabled = false
-tasks.assemble.dependsOn tasks.shadowJar

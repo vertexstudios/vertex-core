@@ -2,13 +2,6 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocatio
 
 plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'java'
-    id 'maven-publish'
-}
-
-configurations {
-    provided
-    implementation.extendsFrom provided //implementation is useful for compiling with spark dependencies but having a smaller jar since they are already in the classpath
 }
 
 task relocateShadowJar(type: ConfigureShadowRelocation) {
@@ -16,9 +9,8 @@ task relocateShadowJar(type: ConfigureShadowRelocation) {
     prefix = 'org.exagon.sql.libs'
 }
 
-java {
-    withSourcesJar()
-    withJavadocJar()
+repositories {
+    mavenCentral()
 }
 
 shadowJar {
@@ -27,25 +19,12 @@ shadowJar {
     dependsOn(relocateShadowJar)
 }
 
-artifacts {
-    archives sourcesJar
-    archives shadowJar
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId project.group
-            artifactId project.name
-            version project.version
-            from components.java
-            artifact shadowJar
-        }
-    }
-}
-
 dependencies {
     implementation project(':exagon-common')
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '2.3.2'
     implementation group: 'me.lucko', name: 'sql-streams', version: '1.0.0'
+}
+
+artifacts {
+    archives shadowJar
 }

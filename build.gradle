@@ -25,6 +25,7 @@ subprojects {
                 artifactId project.name
                 version project.version
                 from components.java
+                artifact shadowJar
             }
         }
     }

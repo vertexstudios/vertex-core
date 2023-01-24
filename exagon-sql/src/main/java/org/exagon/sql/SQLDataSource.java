@@ -15,17 +15,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SQLDataSource implements SQLAcessor {
 
     @NotNull
-    @Getter
     private Connection connection;
 
     @NotNull
@@ -90,6 +86,11 @@ public class SQLDataSource implements SQLAcessor {
 
         this.source = new HikariDataSource(hikari);
         this.stream = SqlStream.connect(this.source);
+    }
+
+    @NotNull
+    public Connection getConnection() throws SQLException {
+        return Objects.requireNonNull(this.source.getConnection(), "Connection is null");
     }
 
     public void update(@NotNull String statement,

@@ -22,14 +22,24 @@ shadowJar {
     dependsOn(relocateShadowJar)
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
 artifacts {
+    archives sourcesJar
     archives shadowJar
 }
 
 publishing {
     publications {
-        shadow(MavenPublication) {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.name
+            version project.version
             from components.java
+            artifact shadowJar
         }
     }
 }

@@ -15,22 +15,15 @@ task relocateShadowJar(type: ConfigureShadowRelocation) {
     prefix = 'org.exagon.sql.libs'
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-artifacts {
-    archives sourcesJar
-    archives shadowJar
-}
-
 shadowJar {
     archiveFileName = "exagon-sql.jar"
     minimize()
     dependsOn(relocateShadowJar)
 }
 
+artifacts {
+    archives shadowJar
+}
 
 dependencies {
     implementation project(':exagon-common')

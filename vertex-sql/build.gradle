@@ -1,0 +1,29 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+task relocateShadowJar(type: ConfigureShadowRelocation) {
+    target = tasks.shadowJar
+    prefix = 'org.exagon.sql.libs'
+}
+
+repositories {
+    mavenCentral()
+}
+
+shadowJar {
+    archiveName = "$baseName-$version.$extension"
+    minimize()
+    dependsOn(relocateShadowJar)
+}
+
+dependencies {
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '2.3.2'
+    implementation group: 'me.lucko', name: 'sql-streams', version: '1.0.0'
+}
+
+artifacts {
+    archives shadowJar
+}

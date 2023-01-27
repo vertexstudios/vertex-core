@@ -16,6 +16,10 @@ public class TextBuilder {
         return this;
     }
 
+    public static TextBuilder factory() {
+        return new TextBuilder();
+    }
+
     public TextBuilder addLines(String... lines) {
         this.lines.addAll(Arrays.asList(lines));
         return this;

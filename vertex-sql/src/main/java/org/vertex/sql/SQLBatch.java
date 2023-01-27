@@ -11,12 +11,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-@AllArgsConstructor
 public class SQLBatch {
 
     @NotNull private SQLDataSource source;
 
     @NotNull private LinkedList<Pair<String, SqlConsumer<PreparedStatement>>> batchs = new LinkedList<>();
+
+    public SQLBatch(@NotNull SQLDataSource source) {
+        this.source = source;
+    }
 
     public SQLBatch bind(@NotNull String statement, @NotNull SqlConsumer<PreparedStatement> handler) {
         batchs.add(new Pair<>(statement, handler));

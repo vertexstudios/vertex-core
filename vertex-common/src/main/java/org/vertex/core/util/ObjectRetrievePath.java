@@ -1,4 +1,4 @@
-package org.exagon.core.util;
+package org.vertex.core.util;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

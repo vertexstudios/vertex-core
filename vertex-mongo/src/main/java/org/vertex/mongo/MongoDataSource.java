@@ -1,4 +1,4 @@
-package org.exagon.mongo;
+package org.vertex.mongo;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;

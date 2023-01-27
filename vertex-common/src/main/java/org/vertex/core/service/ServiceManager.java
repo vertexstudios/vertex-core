@@ -1,6 +1,6 @@
-package org.exagon.core.service;
+package org.vertex.core.service;
 
-import org.exagon.core.util.Registry;
+import org.vertex.core.util.Registry;
 
 import java.util.Optional;
 

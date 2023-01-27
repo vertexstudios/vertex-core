@@ -1,4 +1,4 @@
-package org.exagon.sql;
+package org.vertex.sql;
 
 import java.sql.Connection;
 import java.sql.SQLException;

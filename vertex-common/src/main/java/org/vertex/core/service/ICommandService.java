@@ -1,7 +1,7 @@
-package org.exagon.core.service;
+package org.vertex.core.service;
 
-import org.exagon.core.conversor.TypeConversor;
-import org.exagon.core.util.Registry;
+import org.vertex.core.conversor.TypeConversor;
+import org.vertex.core.util.Registry;
 
 public interface ICommandService extends IService {
     void register(Registry<String, TypeConversor<?,?>> conversors);

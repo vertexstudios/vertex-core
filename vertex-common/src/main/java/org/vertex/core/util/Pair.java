@@ -1,4 +1,4 @@
-package org.exagon.core.util;
+package org.vertex.core.util;
 
 public class Pair<T,U> {
     private T first;

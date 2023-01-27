@@ -1,4 +1,4 @@
-package org.exagon.core.command;
+package org.vertex.core.command;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

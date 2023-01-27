@@ -2,10 +2,10 @@ package org.vertex.bukkit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.exagon.core.conversor.TypeConversor;
-import org.exagon.core.service.ICommandService;
-import org.exagon.core.service.ServiceManager;
-import org.exagon.core.util.Registry;
+import org.vertex.core.conversor.TypeConversor;
+import org.vertex.core.service.ICommandService;
+import org.vertex.core.service.ServiceManager;
+import org.vertex.core.util.Registry;
 import org.vertex.bukkit.service.DefaultCommandService;
 
 import java.util.UUID;

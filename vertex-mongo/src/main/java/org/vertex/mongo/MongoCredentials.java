@@ -1,4 +1,4 @@
-package org.exagon.mongo;
+package org.vertex.mongo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

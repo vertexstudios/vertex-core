@@ -1,4 +1,4 @@
-package org.exagon.core.command;
+package org.vertex.core.command;
 
 import java.lang.reflect.Method;
 

@@ -6,7 +6,7 @@ plugins {
 
 task relocateShadowJar(type: ConfigureShadowRelocation) {
     target = tasks.shadowJar
-    prefix = 'org.exagon.sql.libs'
+    prefix = 'org.vertex.sql.libs'
 }
 
 repositories {

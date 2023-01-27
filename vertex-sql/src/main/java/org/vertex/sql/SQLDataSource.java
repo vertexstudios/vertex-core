@@ -1,4 +1,4 @@
-package org.exagon.sql;
+package org.vertex.sql;
 
 import be.bendem.sqlstreams.SqlStream;
 import be.bendem.sqlstreams.util.SqlConsumer;

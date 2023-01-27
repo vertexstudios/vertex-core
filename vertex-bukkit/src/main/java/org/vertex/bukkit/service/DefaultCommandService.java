@@ -2,13 +2,13 @@ package org.vertex.bukkit.service;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.exagon.core.command.CmdParam;
-import org.exagon.core.command.Command;
-import org.exagon.core.command.CommandSpec;
-import org.exagon.core.conversor.TypeConversor;
-import org.exagon.core.service.ICommandService;
-import org.exagon.core.util.Pair;
-import org.exagon.core.util.Registry;
+import org.vertex.core.command.CmdParam;
+import org.vertex.core.command.Command;
+import org.vertex.core.command.CommandSpec;
+import org.vertex.core.conversor.TypeConversor;
+import org.vertex.core.service.ICommandService;
+import org.vertex.core.util.Pair;
+import org.vertex.core.util.Registry;
 import org.vertex.bukkit.BukkitPluginContainer;
 
 import java.lang.reflect.InvocationTargetException;

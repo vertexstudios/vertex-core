@@ -54,6 +54,7 @@ public class SQLDataSource implements SQLAcessor {
                 .replace("{port}", credentials.getPort())
                 .replace("{schema}", credentials.getSchema()));
 
+        hikari.setDriverClassName(driver);
         hikari.setUsername(credentials.getUser());
         hikari.setPassword(credentials.getPassword());
 

@@ -21,7 +21,7 @@ shadowJar {
 
 dependencies {
     compileOnly project(":vertex-common")
-    implementation group: 'com.zaxxer', name: 'HikariCP', version: '2.3.2'
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '5.0.1'
     implementation group: 'me.lucko', name: 'sql-streams', version: '1.0.0'
 }
 

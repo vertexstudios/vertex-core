@@ -56,7 +56,7 @@ public class DefaultCommandService implements ICommandService {
                     return false;
                 }
 
-                if(!command.permission().equals("") && (sender.hasPermission(command.permission()) || !sender.isOp())) {
+                if(!command.permission().equals("") && (sender.hasPermission(command.permission()) && !sender.isOp())) {
                     sender.sendMessage(ChatColor.RED + "You don't have permission for that.");
                     return false;
                 }

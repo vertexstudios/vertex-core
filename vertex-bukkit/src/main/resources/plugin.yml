@@ -1,0 +1,6 @@
+name: Test
+main: org.vertex.bukkit.Main
+version: 1.0
+author: lol
+commands:
+  fodase:

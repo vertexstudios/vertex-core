@@ -29,11 +29,13 @@ public class DefaultCommandService implements ICommandService {
         for (String cmd : root) {
             BukkitPluginContainer.getCurrentPlugin().getCommand(cmd).setExecutor((sender, c, label, args) -> {
                 String fullCmd = cmd + " " + String.join(" ", args).trim();
+                System.out.println("Full cmd: " + fullCmd);
                 StringBuilder current = new StringBuilder(cmd);
 
                 Optional<CommandSpec> found = commands.find(cmd);
 
                 for(String arg : args) {
+                    System.out.println("Found arg: " + arg);
                     current.append(" ").append(arg);
                     Optional<CommandSpec> next = commands.find(current.toString().trim());
                     if(!next.isPresent()) {
@@ -48,7 +50,8 @@ public class DefaultCommandService implements ICommandService {
 
                 CommandSpec spec = found.get();
 
-                String[] newArgs = fullCmd.substring(spec.getPath().length(), fullCmd.length()-1).trim().split(" ");
+                String[] newArgs = fullCmd.trim().substring(spec.getPath().length()+1).trim().split(" ");
+                System.out.println("New args: " + Arrays.toString(newArgs));
                 Command command = spec.getCommand();
 
                 if(command.playerOnly() && !(sender instanceof Player)) {
@@ -65,12 +68,21 @@ public class DefaultCommandService implements ICommandService {
                 Map<Integer, Command.CommandParam> paramMap = Stream.of(spec.getCommand().params())
                         .collect(Collectors.toMap(i -> index.getAndIncrement(), Function.identity()));
 
+                System.out.println("Param map:");
+                paramMap.forEach((x,y) -> System.out.println(x + ":" + y.key()));
+
                 List<CmdParam> params = Stream.of(spec.getMethod().getParameters())
                         .filter(param -> param.isAnnotationPresent(CmdParam.class))
                         .map(param -> param.getAnnotation(CmdParam.class)).collect(Collectors.toList());
 
+                System.out.println("Params:");
+                params.forEach((x) -> System.out.println(x.value()));
+
                 Object[] orderedArgs = new Object[newArgs.length + 1];
                 orderedArgs[0] = sender;
+
+                System.out.println("Tamanho dos ordered:");
+                System.out.println(orderedArgs.length);
 
                 int argsIndex = 1;
 
@@ -84,7 +96,11 @@ public class DefaultCommandService implements ICommandService {
                     String passed = newArgs[correspondent.getFirst()];
                     Object value = conversor.convert(passed);
                     orderedArgs[argsIndex++] = value;
+                    System.out.println("Valor passado: " + passed);
+                    System.out.println("Classe do valor convertido: " + value.getClass().getName());
                 }
+
+                System.out.println("Tamanho: " + orderedArgs.length);
 
                 try {
                     spec.getMethod().invoke(null, orderedArgs);

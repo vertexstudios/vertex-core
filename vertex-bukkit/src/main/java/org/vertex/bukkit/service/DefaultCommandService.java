@@ -123,6 +123,7 @@ public class DefaultCommandService implements ICommandService {
                             .filter(word -> !word.contains("<") && !word.contains(">") && !word.contains("[") && !word.contains("]"))
                             .reduce("", (s1, s2) -> s1 + " " + s2).trim();
                     commands.register(path, new CommandSpec(path, method, command));
+                    System.out.println("Registered: " + path);
                 });
     }
 

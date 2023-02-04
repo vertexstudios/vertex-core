@@ -47,15 +47,9 @@ public class DefaultCommandService implements ICommandService {
                     }
                 }
 
-                if (!found.isPresent()) {
-                    return true;
-                }
-
-                CommandSpec spec = found.get();
-
-                String[] newArgs = fullCmd.trim().substring(spec.getPath().length()+1).trim().split(" ");
+                String[] newArgs = fullCmd.trim().substring(found.getPath().length()+1).trim().split(" ");
                 System.out.println("New args: " + Arrays.toString(newArgs));
-                Command command = spec.getCommand();
+                Command command = found.getCommand();
 
                 if(command.playerOnly() && !(sender instanceof Player)) {
                     sender.sendMessage(ChatColor.RED + "This command is only for players.");
@@ -68,13 +62,13 @@ public class DefaultCommandService implements ICommandService {
                 }
 
                 AtomicInteger index = new AtomicInteger();
-                Map<Integer, Command.CommandParam> paramMap = Stream.of(spec.getCommand().params())
+                Map<Integer, Command.CommandParam> paramMap = Stream.of(found.getCommand().params())
                         .collect(Collectors.toMap(i -> index.getAndIncrement(), Function.identity()));
 
                 System.out.println("Param map:");
                 paramMap.forEach((x,y) -> System.out.println(x + ":" + y.key()));
 
-                List<CmdParam> params = Stream.of(spec.getMethod().getParameters())
+                List<CmdParam> params = Stream.of(found.getMethod().getParameters())
                         .filter(param -> param.isAnnotationPresent(CmdParam.class))
                         .map(param -> param.getAnnotation(CmdParam.class)).collect(Collectors.toList());
 
@@ -106,7 +100,7 @@ public class DefaultCommandService implements ICommandService {
                 System.out.println("Tamanho: " + orderedArgs.length);
 
                 try {
-                    spec.getMethod().invoke(null, orderedArgs);
+                    found.getMethod().invoke(null, orderedArgs);
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     throw new RuntimeException(e);
                 }

@@ -40,11 +40,11 @@ public class Text {
                 }
             }
             return line;
-        }).toList();
+        }).collect(Collectors.toList());
     }
 
     public void send(Player player) {
-        lines.forEach(line -> player.sendMessage(replaceVariables(line)));
+        lines.forEach(player::sendMessage);
     }
 
 }

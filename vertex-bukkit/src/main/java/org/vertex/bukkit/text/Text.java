@@ -17,6 +17,7 @@ public class Text {
     public Text(Map<String, Object> placeholders, List<String> lines) {
         this.placeholders = placeholders;
         this.lines = lines;
+        replaceVariables();
         colorizeLines();
     }
 
@@ -31,14 +32,15 @@ public class Text {
         lines = lines.stream().map(line -> ChatColor.translateAlternateColorCodes('&', line)).collect(Collectors.toList());
     }
 
-    public String replaceVariables(String line) {
-        AtomicReference<String> currentLine = new AtomicReference<>(line);
-        placeholders.forEach((key, value) -> {
-            if (line.contains("{" + key + "}")) {
-                currentLine.set(currentLine.get().replace("{" + key + "}", value.toString()));
+    public void replaceVariables() {
+        this.lines = lines.stream().map(line -> {
+            for (Map.Entry<String, Object> entry : placeholders.entrySet()) {
+                if (line.contains("{" + entry.getKey() + "}")) {
+                    line = line.replace("{" + entry.getKey() + "}", entry.getValue().toString());
+                }
             }
-        });
-        return currentLine.get();
+            return line;
+        }).toList();
     }
 
     public void send(Player player) {

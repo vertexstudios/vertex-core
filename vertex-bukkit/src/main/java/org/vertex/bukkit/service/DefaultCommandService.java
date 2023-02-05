@@ -48,6 +48,9 @@ public class DefaultCommandService implements ICommandService {
                 }
 
                 String[] newArgs = fullCmd.trim().substring(found.getPath().length()).trim().split(" ");
+                if(newArgs[0].equals("")) {
+                    newArgs = new String[0];
+                }
                 System.out.println("New args: " + Arrays.toString(newArgs));
                 Command command = found.getCommand();
 

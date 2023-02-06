@@ -33,6 +33,7 @@ public class DefaultCommandService implements ICommandService {
                 StringBuilder current = new StringBuilder(cmd);
 
                 if(commands.find(cmd).isEmpty()) {
+                    System.out.println("Couldn't find: " + cmd);
                     return true;
                 }
 

@@ -12,12 +12,14 @@ public abstract class PaginatedGUI extends GUIHolder {
     public PaginatedGUI(Player holder, boolean loop) {
         super(holder);
         this.loop = loop;
+        this.pages = buildPages();
     }
 
     public PaginatedGUI(Player holder, int currentIndex, boolean loop) {
         super(holder);
         this.index = currentIndex;
         this.loop = loop;
+        this.pages = buildPages();
     }
 
     /*

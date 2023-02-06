@@ -12,14 +12,12 @@ public abstract class PaginatedGUI extends GUIHolder {
     public PaginatedGUI(Player holder, boolean loop) {
         super(holder);
         this.loop = loop;
-        this.pages = buildPages();
     }
 
     public PaginatedGUI(Player holder, int currentIndex, boolean loop) {
         super(holder);
         this.index = currentIndex;
         this.loop = loop;
-        this.pages = buildPages();
     }
 
     /*
@@ -58,6 +56,7 @@ public abstract class PaginatedGUI extends GUIHolder {
      * Get the page corresponding to the current index and opens it.
      * */
     public void openCurrentPage() {
+        this.pages = buildPages();
         this.getHolder().closeInventory();
         pages.get(index).openInventory();
     }

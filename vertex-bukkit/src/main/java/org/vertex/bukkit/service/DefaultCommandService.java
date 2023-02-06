@@ -33,6 +33,9 @@ public class DefaultCommandService implements ICommandService {
                 StringBuilder current = new StringBuilder(cmd);
 
                 CommandSpec found = null;
+                if(commands.find(cmd).isPresent()) {
+                    found = commands.find(cmd).get();
+                }
 
                 for(String arg : args) {
                     System.out.println("Found arg: " + arg);

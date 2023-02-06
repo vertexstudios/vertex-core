@@ -32,12 +32,7 @@ public class DefaultCommandService implements ICommandService {
                 System.out.println("Full cmd: " + fullCmd);
                 StringBuilder current = new StringBuilder(cmd);
 
-                if(commands.find(cmd).isEmpty()) {
-                    System.out.println("Couldn't find: " + cmd);
-                    return true;
-                }
-
-                CommandSpec found = commands.find(cmd).get();
+                CommandSpec found = null;
 
                 for(String arg : args) {
                     System.out.println("Found arg: " + arg);
@@ -46,6 +41,10 @@ public class DefaultCommandService implements ICommandService {
                     if(next.isPresent()) {
                         found = next.get();
                     }
+                }
+
+                if(found == null) {
+                    return true;
                 }
 
                 String[] newArgs = fullCmd.trim().substring(found.getPath().length()).trim().split(" ");

@@ -108,7 +108,7 @@ public class DefaultCommandService implements ICommandService {
                 try {
                     found.getMethod().invoke(null, orderedArgs);
                 } catch (IllegalAccessException | InvocationTargetException e) {
-                    throw new RuntimeException(e);
+                    sender.sendMessage(ChatColor.RED + "Correct usage: /" + command.usage());
                 }
 
 

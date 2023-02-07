@@ -51,13 +51,12 @@ public abstract class Page implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
-        event.setCancelled(true);
         if(!event.getClickedInventory().equals(this.inventory)) {
             return;
         }
         if (event.getWhoClicked() instanceof Player) {
             Player player = (Player)event.getWhoClicked();
-            if (player.getName().equals(this.parent.getHolder().getName())) {
+            if (player.getUniqueId().equals(this.parent.getHolder().getUniqueId())) {
                 event.setCancelled(true);
                 if (this.items == null) {
                     return;

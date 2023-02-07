@@ -38,6 +38,7 @@ public abstract class Page implements Listener {
         if(this.parent.getHolder() == null) {
             return;
         }
+        this.parent.getHolder().closeInventory();
         this.parent.getHolder().openInventory(this.inventory);
         try {
             Bukkit.getPluginManager().registerEvents(this, BukkitPluginContainer.getCurrentPlugin());

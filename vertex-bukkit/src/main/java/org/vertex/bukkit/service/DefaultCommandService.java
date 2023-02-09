@@ -107,9 +107,10 @@ public class DefaultCommandService implements ICommandService {
 
                 try {
                     found.getMethod().invoke(null, orderedArgs);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (IllegalArgumentException | IndexOutOfBoundsException ex) {
                     sender.sendMessage(ChatColor.RED + "Correct usage: /" + command.usage());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
                 return false;
             });

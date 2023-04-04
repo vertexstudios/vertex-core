@@ -1,5 +1,6 @@
 package org.vertex.bukkit.gui;
 
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,12 +24,19 @@ public abstract class Page implements Listener {
     protected GUIHolder parent;
     protected Inventory inventory;
     protected Map<Integer, GUIItem> items = new HashMap<>();
-    protected String title;
+    @Setter protected String title;
+
+    private Rows rows;
 
     public Page(GUIHolder parent, String title, Rows rows) {
         this.parent = parent;
         this.title = title;
         this.inventory = Bukkit.createInventory(null, rows.slots, title);
+    }
+
+    public Page(GUIHolder parent, Rows rows) {
+        this.parent = parent;
+        this.rows = rows;
     }
 
     public abstract List<GUIItem> build();
@@ -37,6 +45,9 @@ public abstract class Page implements Listener {
         putItems();
         if(this.parent.getHolder() == null) {
             return;
+        }
+        if (this.inventory == null) {
+            this.inventory = Bukkit.createInventory(null, this.rows.slots, this.title);
         }
         this.parent.getHolder().closeInventory();
         this.parent.getHolder().openInventory(this.inventory);

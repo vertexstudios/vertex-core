@@ -104,6 +104,7 @@ public class SQLDataSource implements SQLAcessor {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
     public <T> Optional<T> findOne(@NotNull String statement,

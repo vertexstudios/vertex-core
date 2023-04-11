@@ -93,13 +93,13 @@ public class SQLDataSource implements SQLAcessor {
         return Objects.requireNonNull(this.source.getConnection(), "Connection is null");
     }
 
-    public void update(@NotNull String statement,
+    public int update(@NotNull String statement,
                        @NotNull SqlConsumer<PreparedStatement> preparedStatementConsumer) {
         try (Connection conn = this.getConnection();
              PreparedStatement prepared = conn.prepareStatement(statement)) {
 
             preparedStatementConsumer.accept(prepared);
-            prepared.executeUpdate();
+            return prepared.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();

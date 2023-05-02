@@ -69,7 +69,7 @@ public abstract class Page implements Listener {
         if(event.getClickedInventory() == null) {
             return;
         }
-        if(!event.getClickedInventory().equals(this.inventory)) {
+        if(!event.getInventory().equals(this.inventory)) {
             return;
         }
         if (event.getWhoClicked() instanceof Player) {

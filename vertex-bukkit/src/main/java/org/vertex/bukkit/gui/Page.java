@@ -60,7 +60,7 @@ public abstract class Page implements Listener {
         }
     }
 
-    public void handleClick(int slot) {
+    public void handleClick(InventoryClickEvent event) {
 
     }
 
@@ -79,7 +79,7 @@ public abstract class Page implements Listener {
                 if (this.items == null) {
                     return;
                 }
-                handleClick(event.getSlot());
+                handleClick(event);
                 Optional<GUIItem> item = Optional.ofNullable(items.get(event.getSlot()));
                 if(item.isPresent() && item.get().getItem().equals(event.getCurrentItem())) {
                     Optional.ofNullable(item.get().getAction()).ifPresent(action -> action.execute(event, player));

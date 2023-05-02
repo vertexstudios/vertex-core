@@ -23,7 +23,7 @@ public abstract class Page implements Listener {
     protected GUIHolder parent;
     protected Inventory inventory;
     protected Map<Integer, GUIItem> items = new HashMap<>();
-    @Setter protected String title;
+    @Getter @Setter protected String title;
 
     private Rows rows;
 

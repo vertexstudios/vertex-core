@@ -21,6 +21,8 @@ public class ItemStackBuilder {
 
     private Set<ItemFlag> flags = new HashSet<>();
 
+    private Integer modelData = null;
+
     private int amount = 1;
 
     public static ItemStackBuilder factory() {
@@ -68,6 +70,11 @@ public class ItemStackBuilder {
         return this;
     }
 
+    public ItemStackBuilder modelData(Integer data) {
+        this.modelData = data;
+        return this;
+    }
+
     public ItemStackBuilder persistentData(NamespacedKey key, PersistentDataType<?,?> type, Object value) {
         this.persistentData.add(new Triple<>(key, type, value));
         return this;
@@ -75,10 +82,17 @@ public class ItemStackBuilder {
 
     public ItemStack build() {
         ItemStack stack = new ItemStack(material, amount);
+        if(stack == null) {
+            System.out.println("Error while creating stack.");
+            return null;
+        }
         stack.addUnsafeEnchantments(enchants);
         ItemMeta meta = stack.getItemMeta();
         if(title != null) {
             meta.setDisplayName(title.replace("&", "§"));
+        }
+        if(modelData != null) {
+            meta.setCustomModelData(modelData);
         }
         flags.forEach(meta::addItemFlags);
         persistentData.forEach(x -> {

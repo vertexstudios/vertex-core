@@ -94,7 +94,6 @@ public class ItemStackBuilder {
         if(modelData != null) {
             meta.setCustomModelData(modelData);
         }
-        flags.forEach(meta::addItemFlags);
         persistentData.forEach(x -> {
             meta.getPersistentDataContainer().set(x.getFirst(), (PersistentDataType) x.getSecond(), x.getThird());
         });

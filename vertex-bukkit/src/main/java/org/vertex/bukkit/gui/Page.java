@@ -66,6 +66,9 @@ public abstract class Page implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
+        if(event.getClickedInventory() == null) {
+            return;
+        }
         if(!event.getClickedInventory().equals(this.inventory)) {
             return;
         }

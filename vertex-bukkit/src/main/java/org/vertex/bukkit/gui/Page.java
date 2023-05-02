@@ -42,13 +42,13 @@ public abstract class Page implements Listener {
     public abstract List<GUIItem> build();
 
     public void openInventory() {
-        putItems();
         if(this.parent.getHolder() == null) {
             return;
         }
         if (this.inventory == null) {
             this.inventory = Bukkit.createInventory(null, this.rows.slots, this.title);
         }
+        putItems();
         this.parent.getHolder().closeInventory();
         this.parent.getHolder().openInventory(this.inventory);
         try {

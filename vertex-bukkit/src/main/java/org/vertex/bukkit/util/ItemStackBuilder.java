@@ -94,9 +94,6 @@ public class ItemStackBuilder {
         if(modelData != null) {
             meta.setCustomModelData(modelData);
         }
-        persistentData.forEach(x -> {
-            meta.getPersistentDataContainer().set(x.getFirst(), (PersistentDataType) x.getSecond(), x.getThird());
-        });
         meta.setLore(lore.stream().map(lore -> lore.replace("&", "§")).collect(Collectors.toList()));
         stack.setItemMeta(meta);
         return stack;

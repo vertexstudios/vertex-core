@@ -1,5 +1,6 @@
 package org.vertex.bukkit.util;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -87,13 +88,17 @@ public class ItemStackBuilder {
             return null;
         }
         stack.addUnsafeEnchantments(enchants);
-        ItemMeta meta = stack.getItemMeta();
+        ItemMeta meta = Bukkit.getServer().getItemFactory().getItemMeta(material);
         if(title != null) {
             meta.setDisplayName(title.replace("&", "§"));
         }
         if(modelData != null) {
             meta.setCustomModelData(modelData);
         }
+        flags.forEach(meta::addItemFlags);
+        persistentData.forEach(x -> {
+            meta.getPersistentDataContainer().set(x.getFirst(), (PersistentDataType) x.getSecond(), x.getThird());
+        });
         meta.setLore(lore.stream().map(lore -> lore.replace("&", "§")).collect(Collectors.toList()));
         stack.setItemMeta(meta);
         return stack;

@@ -1,5 +1,7 @@
 package org.vertex.bukkit.gui;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -14,10 +16,7 @@ import org.bukkit.inventory.Inventory;
 import org.vertex.bukkit.BukkitPluginContainer;
 import org.vertex.bukkit.gui.core.GUIItem;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public abstract class Page implements Listener {
 
@@ -126,18 +125,22 @@ public abstract class Page implements Listener {
         this.items = null;
     }
 
+    @AllArgsConstructor
     public enum Rows {
-        ONE(9),
-        TWO(18),
-        THREE(27),
-        FOUR(36),
-        FIVE(45),
-        SIX(54);
+        ONE(9, 1),
+        TWO(18, 2),
+        THREE(27, 3),
+        FOUR(36, 4),
+        FIVE(45, 5),
+        SIX(54, 6);
 
-        public final int slots;
+        public int slots;
 
-        Rows(int slots) {
-            this.slots = slots;
+        @Getter public int rowsNumber;
+
+        public static Rows byRowsNumber(int number) {
+            return Arrays.stream(values()).filter(x -> x.rowsNumber == number).findFirst().get();
         }
+
     }
 }

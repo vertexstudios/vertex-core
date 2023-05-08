@@ -1,6 +1,7 @@
 package org.vertex.bukkit.gui;
 
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
@@ -8,8 +9,9 @@ public class GUIHolder {
     private Player holder;
     private UUID holderUUID;
 
-    public GUIHolder(Player holder) {
+    public GUIHolder(@NotNull Player holder) {
         this.holder = holder;
+        this.holderUUID = holder.getUniqueId();
     }
 
     public UUID getHolderUUID() {

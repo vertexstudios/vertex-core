@@ -115,14 +115,15 @@ public class DefaultCommandService implements ICommandService {
                     String current = "";
                     while(path.contains("%")) {
                         int index = path.indexOf('%');
+                        x:
                         for(int i = index + 1; i < path.length(); i++) {
                             if(path.charAt(i) == '%') {
-                                break;
+                                break x;
                             }
                             current+=path.charAt(i);
                         }
                         String alias = BukkitPluginContainer.getCurrentPlugin().getConfig().getString("aliases." + current);
-                        path.replace("%" + current + "%", alias);
+                        path = path.replace("%" + current + "%", alias);
                         current = "";
                     }
                     commands.register(path, new CommandSpec(path, method, command));

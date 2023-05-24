@@ -22,19 +22,21 @@ public abstract class Page implements Listener {
 
     protected GUIHolder parent;
     protected Inventory inventory;
-    protected Map<Integer, GUIItem> items = new HashMap<>();
+    protected Map<Integer, GUIItem> items;
     @Getter @Setter protected String title;
 
     private Rows rows;
 
     public Page(GUIHolder parent, String title, Rows rows) {
         this.parent = parent;
+        this.items = new HashMap<>();
         this.title = title;
         this.inventory = Bukkit.createInventory(null, rows.slots, title);
     }
 
     public Page(GUIHolder parent, Rows rows) {
         this.parent = parent;
+        this.items = new HashMap<>();
         this.rows = rows;
     }
 

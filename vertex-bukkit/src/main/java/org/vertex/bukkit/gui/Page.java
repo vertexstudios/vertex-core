@@ -113,7 +113,9 @@ public abstract class Page implements Listener {
     private void putItems() {
         this.build().forEach(item -> items.put(item.getSlot(), item));
         this.inventory.clear();
-        this.items.values().forEach(item -> inventory.setItem(item.getSlot(), item.getItem()));
+        if(this.items != null) {
+            this.items.values().forEach(item -> inventory.setItem(item.getSlot(), item.getItem()));
+        }
     }
 
     public Inventory getInventory() {

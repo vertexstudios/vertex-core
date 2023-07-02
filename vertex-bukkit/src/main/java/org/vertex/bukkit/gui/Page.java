@@ -23,7 +23,9 @@ public abstract class Page implements Listener {
     protected GUIHolder parent;
     protected Inventory inventory;
     protected Map<Integer, GUIItem> items = new HashMap<>();
-    @Getter @Setter protected String title;
+    @Getter
+    @Setter
+    protected String title;
 
     private Rows rows;
 
@@ -43,7 +45,7 @@ public abstract class Page implements Listener {
     public abstract List<GUIItem> build();
 
     public void openInventory() {
-        if(this.parent.getHolder() == null) {
+        if (this.parent.getHolder() == null) {
             return;
         }
         if (this.inventory == null) {
@@ -68,31 +70,40 @@ public abstract class Page implements Listener {
     @EventHandler
     public void onClick(InventoryClickEvent event) {
         System.out.println("1");
-        if(event.getClickedInventory() == null) {
+        if (event.getClickedInventory() == null) {
             System.out.println("2");
             return;
         }
-        if(!event.getInventory().equals(this.inventory)) {
+
+        if (!event.getInventory().equals(this.inventory)) {
             System.out.println("3");
             return;
         }
-        if (event.getWhoClicked() instanceof Player) {
-            System.out.println("4");
-            Player player = (Player) event.getWhoClicked();
-            if (player.getUniqueId().equals(this.parent.getHolder().getUniqueId())) {
-                System.out.println("5");
-                event.setCancelled(true);
-                if (this.items == null) {
-                    System.out.println("6");
-                    return;
-                }
-                handleClick(event);
-                Optional<GUIItem> item = Optional.ofNullable(items.get(event.getSlot()));
-                if(item.isPresent() && item.get().getItem().equals(event.getCurrentItem())) {
-                    System.out.println("7");
-                    Optional.ofNullable(item.get().getAction()).ifPresent(action -> action.execute(event, player));
-                }
-            }
+
+        if (!(event.getWhoClicked() instanceof Player)) {
+            return;
+        }
+
+        System.out.println("4");
+        Player player = (Player) event.getWhoClicked();
+        if (!player.getUniqueId().equals(this.parent.getHolder().getUniqueId())) {
+            return;
+        }
+
+        System.out.println("5");
+        event.setCancelled(true);
+        if (this.items == null) {
+            System.out.println("6");
+            return;
+        }
+
+        handleClick(event);
+        Optional<GUIItem> item = Optional.ofNullable(items.get(event.getSlot()));
+        System.out.println("Slot: " + event.getSlot());
+        System.out.println("Presente? " + item.isPresent());
+        if (item.isPresent() && item.get().getItem().equals(event.getCurrentItem())) {
+            System.out.println("7");
+            Optional.ofNullable(item.get().getAction()).ifPresent(action -> action.execute(event, player));
         }
     }
 
@@ -120,7 +131,7 @@ public abstract class Page implements Listener {
     private void putItems() {
         this.build().forEach(item -> items.put(item.getSlot(), item));
         this.inventory.clear();
-        if(this.items != null) {
+        if (this.items != null) {
             this.items.values().forEach(item -> inventory.setItem(item.getSlot(), item.getItem()));
         }
     }
@@ -147,7 +158,8 @@ public abstract class Page implements Listener {
 
         public int slots;
 
-        @Getter public int rowsNumber;
+        @Getter
+        public int rowsNumber;
 
         public static Rows byRowsNumber(int number) {
             return Arrays.stream(values()).filter(x -> x.rowsNumber == number).findFirst().get();

@@ -22,7 +22,7 @@ public abstract class Page implements Listener {
 
     protected GUIHolder parent;
     protected Inventory inventory;
-    protected Map<Integer, GUIItem> items;
+    protected Map<Integer, GUIItem> items = new HashMap<>();
     @Getter @Setter protected String title;
 
     private Rows rows;
@@ -67,22 +67,28 @@ public abstract class Page implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
+        System.out.println("1");
         if(event.getClickedInventory() == null) {
+            System.out.println("2");
             return;
         }
         if(!event.getInventory().equals(this.inventory)) {
+            System.out.println("3");
             return;
         }
-        if (event.getWhoClicked() instanceof Player) {
-            Player player = (Player)event.getWhoClicked();
+        if (event.getWhoClicked() instanceof Player player) {
+            System.out.println("4");
             if (player.getUniqueId().equals(this.parent.getHolder().getUniqueId())) {
+                System.out.println("5");
                 event.setCancelled(true);
                 if (this.items == null) {
+                    System.out.println("6");
                     return;
                 }
                 handleClick(event);
                 Optional<GUIItem> item = Optional.ofNullable(items.get(event.getSlot()));
                 if(item.isPresent() && item.get().getItem().equals(event.getCurrentItem())) {
+                    System.out.println("7");
                     Optional.ofNullable(item.get().getAction()).ifPresent(action -> action.execute(event, player));
                 }
             }

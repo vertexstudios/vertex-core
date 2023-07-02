@@ -23,10 +23,6 @@ subprojects {
         mavenCentral()
     }
 
-    tasks.withType(JavaCompile).each {
-        it.options.compilerArgs.add('--enable-preview')
-    }
-
     dependencies {
         implementation  'com.google.guava:guava:30.0-jre'
         implementation  'org.jetbrains:annotations:23.0.0'

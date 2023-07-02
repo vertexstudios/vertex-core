@@ -76,8 +76,9 @@ public abstract class Page implements Listener {
             System.out.println("3");
             return;
         }
-        if (event.getWhoClicked() instanceof Player player) {
+        if (event.getWhoClicked() instanceof Player) {
             System.out.println("4");
+            Player player = (Player) event.getWhoClicked();
             if (player.getUniqueId().equals(this.parent.getHolder().getUniqueId())) {
                 System.out.println("5");
                 event.setCancelled(true);

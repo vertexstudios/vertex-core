@@ -69,14 +69,11 @@ public abstract class Page implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
-        System.out.println("1");
         if (event.getClickedInventory() == null) {
-            System.out.println("2");
             return;
         }
 
         if (!event.getInventory().equals(this.inventory)) {
-            System.out.println("3");
             return;
         }
 

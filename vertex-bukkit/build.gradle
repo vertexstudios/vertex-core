@@ -1,5 +1,6 @@
 plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id "io.github.patrick.remapper" version "1.4.0"
 }
 
 shadowJar {
@@ -8,10 +9,16 @@ shadowJar {
 }
 
 repositories {
+    mavenCentral()
+    maven { url "https://repo.rosewooddev.io/repository/public/"}
+    maven { url "https://repo.dmulloy2.net/repository/public/" }
     maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots" }
 }
 
 dependencies {
     implementation project(':vertex-common')
+    compileOnly 'com.comphenix.protocol:ProtocolLib:5.0.0'
     compileOnly "org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT"
+    compileOnly 'org.spigotmc:spigot:1.20'
+
 }

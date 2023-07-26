@@ -1,5 +1,8 @@
 package org.vertex.bukkit;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.vertex.core.conversor.TypeConversor;
@@ -12,8 +15,8 @@ import java.util.UUID;
 
 public class VertexBukkitPlugin extends JavaPlugin {
 
-    protected ServiceManager serviceManager;
-
+    @Getter protected ServiceManager serviceManager;
+    @Getter protected ProtocolManager protocolManager;
     protected Registry<String, TypeConversor<?,?>> conversors;
     @Override
     public void onLoad() {
@@ -26,7 +29,7 @@ public class VertexBukkitPlugin extends JavaPlugin {
         this.serviceManager.getRegistry().register(ICommandService.class, new DefaultCommandService());
 
         conversors = new Registry<>();
-
+        
         conversors.register("string-to-int", ((t) -> Integer.parseInt((String) t)));
         conversors.register("string-to-boolean", ((t) -> Boolean.parseBoolean((String) t)));
         conversors.register("name-to-player", ((t) -> Bukkit.getPlayer((String) t)));
@@ -34,6 +37,8 @@ public class VertexBukkitPlugin extends JavaPlugin {
         conversors.register("string-to-string", ((t) -> (t)));
 
         init();
+
+        this.protocolManager = ProtocolLibrary.getProtocolManager();
 
         this.serviceManager.getService(ICommandService.class).get().register(conversors);
     }

@@ -14,5 +14,5 @@ import lombok.Getter;
 public class ContainerElement {
     @Getter private int slot;
     @Getter private ElementAction action;
-    @Getter private Supplier<ItemStack> stack;
+    @Getter private ItemStack stack;
 }

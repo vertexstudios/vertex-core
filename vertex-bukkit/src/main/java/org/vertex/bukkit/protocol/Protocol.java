@@ -18,7 +18,6 @@ public class Protocol {
         private String title;
         private int containerId;
         private int windowType;
-        private Map<Integer, ItemStack> items;
 
         public void send(Player player) {
             PacketContainer update = new PacketContainer(PacketType.Play.Server.OPEN_WINDOW);

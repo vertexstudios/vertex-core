@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.NonNull;
 
 import java.util.Queue;
-import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.function.Consumer;
 
 public abstract class AbstractPipeline<T> {
 

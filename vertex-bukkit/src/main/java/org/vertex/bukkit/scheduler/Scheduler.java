@@ -6,7 +6,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 import org.vertex.bukkit.BukkitPluginContainer;
-import org.vertex.core.command.Command;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;

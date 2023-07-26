@@ -1,13 +1,5 @@
 package org.vertex.bukkit.pipeline;
 
-import lombok.Getter;
-import lombok.NonNull;
-
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.PriorityBlockingQueue;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class FunctionPipeline<T> extends AbstractPipeline<Function<T,T>> {

@@ -1,6 +1,5 @@
 package org.vertex.bukkit.pipeline;
 
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class PredicatePipeline<T> extends AbstractPipeline<Predicate<T>> {

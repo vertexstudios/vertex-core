@@ -4,8 +4,6 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.EventExecutor;
-import org.bukkit.plugin.Plugin;
-import org.vertex.bukkit.pipeline.PredicatePipeline;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;

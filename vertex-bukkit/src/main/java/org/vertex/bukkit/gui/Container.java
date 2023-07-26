@@ -1,31 +1,22 @@
 package org.vertex.bukkit.gui;
 
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
-
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.Inventory;
 import org.vertex.bukkit.BukkitPluginContainer;
 import org.vertex.bukkit.event.MultiEventSubscriber;
-import org.vertex.bukkit.event.Subscriber;
 import org.vertex.bukkit.event.Subscription;
 import org.vertex.bukkit.pipeline.ConsumerPipeline;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
+import java.util.*;
+import java.util.function.Consumer;
 
 public abstract class Container {
     

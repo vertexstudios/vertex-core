@@ -12,9 +12,6 @@ import org.bukkit.plugin.EventExecutor;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class MultiEventSubscriber implements Subscriber, Listener, EventExecutor  {
     private Plugin plugin;
     private boolean disposed = false;

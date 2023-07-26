@@ -5,11 +5,11 @@ import com.comphenix.protocol.ProtocolManager;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.vertex.bukkit.service.DefaultCommandService;
 import org.vertex.core.conversor.TypeConversor;
 import org.vertex.core.service.ICommandService;
 import org.vertex.core.service.ServiceManager;
 import org.vertex.core.util.Registry;
-import org.vertex.bukkit.service.DefaultCommandService;
 
 import java.util.UUID;
 

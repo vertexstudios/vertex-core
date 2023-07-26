@@ -1,6 +1,5 @@
 package org.vertex.bukkit.event;
 
-import lombok.Builder;
 import lombok.Getter;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;

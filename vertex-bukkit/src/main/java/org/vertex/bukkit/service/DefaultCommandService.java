@@ -2,6 +2,7 @@ package org.vertex.bukkit.service;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.vertex.bukkit.BukkitPluginContainer;
 import org.vertex.core.command.CmdParam;
 import org.vertex.core.command.Command;
 import org.vertex.core.command.CommandSpec;
@@ -9,9 +10,7 @@ import org.vertex.core.conversor.TypeConversor;
 import org.vertex.core.service.ICommandService;
 import org.vertex.core.util.Pair;
 import org.vertex.core.util.Registry;
-import org.vertex.bukkit.BukkitPluginContainer;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;

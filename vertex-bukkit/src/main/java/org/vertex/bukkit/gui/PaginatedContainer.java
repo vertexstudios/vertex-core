@@ -2,11 +2,8 @@ package org.vertex.bukkit.gui;
 
 import lombok.Getter;
 import net.minecraft.server.level.EntityPlayer;
-import net.minecraft.world.entity.EntityLiving;
-import net.minecraft.world.entity.player.EntityHuman;
 import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.vertex.bukkit.protocol.Protocol;
 
 import java.util.List;
@@ -48,16 +45,16 @@ public abstract class PaginatedContainer {
     }
 
     public void openCurrentPage() {
-        this.pages = buildPages();
+        Container current = getCurrentPage();
         if(keepOpen) {
-
             EntityPlayer ep = ((CraftPlayer)holder).getHandle();
             Protocol.UpdateScreen.builder()
                     .containerId(ep.bR.j)
-                    .title("")
-                    .items(null).build().send(holder);
-
+                    .title(current.getTitle())
+                    .windowType(current.getRows().rowsNumber - 1)
+                    .build().send(holder);
             holder.updateInventory();
+            return;
         }
         this.holder.closeInventory();
         this.holder.openInventory(this.getCurrentPage().getInventory());

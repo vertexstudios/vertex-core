@@ -10,6 +10,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.Nullable;
 import org.vertex.bukkit.BukkitPluginContainer;
 import org.vertex.bukkit.subscriber.MultiEventSubscriber;
 import org.vertex.bukkit.subscriber.Subscription;
@@ -32,6 +33,13 @@ public abstract class Container {
     @Getter @NonNull private ConsumerPipeline<Container> openningPipeline;
 
     @Getter @NonNull private MultiEventSubscriber subscriber;
+
+    @Nullable private PaginatedContainer parent;
+
+    public Container(Player holder, String title, Rows rows, PaginatedContainer parent) {
+        this(holder, title, rows);
+        this.parent = parent;
+    }
 
     public Container(Player holder, String title, Rows rows) {
         this.holder = holder;
@@ -94,6 +102,14 @@ public abstract class Container {
         for(int i = 0; i < slots.length; i++) {
             this.customActions.put(slots[i], action);
         }
+    }
+
+    public boolean hasParentContainer() {
+        return parent != null;
+    }
+
+    public Optional<PaginatedContainer> getParent() {
+        return Optional.ofNullable(parent);
     }
 
     public void open() {

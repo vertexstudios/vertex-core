@@ -16,6 +16,17 @@ public abstract class PaginatedContainer {
     @Getter private boolean keepOpen;
     @Getter private int index = 0;
 
+    public PaginatedContainer(Player holder, boolean loop, boolean keepOpen) {
+        this.holder = holder;
+        this.loop = loop;
+        this.keepOpen = keepOpen;
+    }
+
+    public PaginatedContainer(Player holder, boolean loop, boolean keepOpen, int index) {
+        this(holder,loop,keepOpen);
+        this.index = index;
+    }
+
     public void next() {
         if (index + 1 >= pages.size()) {
             if(loop) {

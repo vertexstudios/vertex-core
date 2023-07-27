@@ -10,14 +10,14 @@ import java.util.List;
 
 public abstract class PaginatedContainer {
 
-    @Getter private boolean keepOpen;
     @Getter private List<Container> pages;
-    @Getter private int index = 0;
-    @Getter private boolean loop;
     @Getter private Player holder;
+    @Getter private boolean loop;
+    @Getter private boolean keepOpen;
+    @Getter private int index = 0;
 
     public void next() {
-        if (index + 1 > pages.size()) {
+        if (index + 1 >= pages.size()) {
             if(loop) {
                 index = 0;
                 return;
@@ -25,7 +25,7 @@ public abstract class PaginatedContainer {
             index = pages.size() - 1;
             return;
         }
-        index = index - 1;
+        index = index + 1;
     }
 
     public void previous() {

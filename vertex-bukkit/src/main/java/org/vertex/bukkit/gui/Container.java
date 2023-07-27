@@ -11,8 +11,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.Inventory;
 import org.vertex.bukkit.BukkitPluginContainer;
-import org.vertex.bukkit.event.MultiEventSubscriber;
-import org.vertex.bukkit.event.Subscription;
+import org.vertex.bukkit.subscriber.MultiEventSubscriber;
+import org.vertex.bukkit.subscriber.Subscription;
 import org.vertex.bukkit.pipeline.ConsumerPipeline;
 
 import java.util.*;
@@ -26,7 +26,7 @@ public abstract class Container {
     @Getter @NonNull private String title;
     @Getter @NonNull private Rows rows;
 
-    @Getter private Map<Integer, Consumer<InventoryClickEvent>> customActions;
+    @Getter @NonNull private Map<Integer, Consumer<InventoryClickEvent>> customActions;
 
     @Getter @NonNull private ConsumerPipeline<Container> closingPipeline;
     @Getter @NonNull private ConsumerPipeline<Container> openningPipeline;

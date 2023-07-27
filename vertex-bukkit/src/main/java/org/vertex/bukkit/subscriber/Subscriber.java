@@ -1,4 +1,4 @@
-package org.vertex.bukkit.event;
+package org.vertex.bukkit.subscriber;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;

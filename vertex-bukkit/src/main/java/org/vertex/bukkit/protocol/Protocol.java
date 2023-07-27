@@ -5,11 +5,8 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import lombok.Builder;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.vertex.bukkit.BukkitPluginContainer;
 import org.vertex.bukkit.VertexBukkitPlugin;
-
-import java.util.Map;
 
 public class Protocol {
 

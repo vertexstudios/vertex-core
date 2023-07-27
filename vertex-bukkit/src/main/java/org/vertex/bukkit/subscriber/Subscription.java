@@ -1,4 +1,4 @@
-package org.vertex.bukkit.event;
+package org.vertex.bukkit.subscriber;
 
 import lombok.Getter;
 import org.bukkit.event.Event;

@@ -1,4 +1,4 @@
-package org.vertex.bukkit.event;
+package org.vertex.bukkit.subscriber;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;

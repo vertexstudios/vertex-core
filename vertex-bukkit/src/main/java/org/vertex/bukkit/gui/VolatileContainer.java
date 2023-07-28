@@ -26,8 +26,4 @@ public abstract class VolatileContainer extends Container {
     public void setItems(Map<Integer, ContainerElement> items) {
         this.items = items;
     }
-
-    public void setCustomActions(Map<Integer, Consumer<InventoryClickEvent>> customActions) {
-        this.customActions = customActions;
-    }
 }

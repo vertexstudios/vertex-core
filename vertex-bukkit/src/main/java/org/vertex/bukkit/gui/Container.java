@@ -32,6 +32,7 @@ public abstract class Container {
     @NonNull
     protected Map<Integer, ContainerElement> items;
     @Getter
+    @Setter
     @NonNull
     protected String title;
     @Getter

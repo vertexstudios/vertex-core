@@ -9,7 +9,7 @@ import org.vertex.bukkit.gui.Container;
 
 public class ContainerPreOpeningEvent extends ContainerEvent implements Cancellable {
 
-    @Getter private static HandlerList handlerList = new HandlerList();
+    private static HandlerList handlerList = new HandlerList();
     private boolean canceled = false;
 
     public ContainerPreOpeningEvent(Container container) {

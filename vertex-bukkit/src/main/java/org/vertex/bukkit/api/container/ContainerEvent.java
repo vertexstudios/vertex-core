@@ -12,7 +12,7 @@ import org.vertex.bukkit.gui.Container;
 public class ContainerEvent extends Event {
 
     @Getter private Container container;
-    @Getter private static HandlerList handlerList = new HandlerList();
+    private static HandlerList handlerList = new HandlerList();
 
     @NotNull
     @Override

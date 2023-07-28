@@ -7,7 +7,7 @@ import org.vertex.bukkit.gui.Container;
 
 public class ContainerOpenedEvent extends ContainerEvent  {
 
-    @Getter private static HandlerList handlerList = new HandlerList();
+    private static HandlerList handlerList = new HandlerList();
 
     public ContainerOpenedEvent(Container container) {
         super(container);

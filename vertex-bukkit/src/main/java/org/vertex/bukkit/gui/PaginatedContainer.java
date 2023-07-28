@@ -63,26 +63,9 @@ public abstract class PaginatedContainer {
         if(keepOpen && current instanceof VolatileContainer) {
 
             VolatileContainer volatileContainer = (VolatileContainer) current;
-            EntityPlayer ep = ((CraftPlayer)holder).getHandle();
 
             Inventory currentInventory = holder.getOpenInventory().getTopInventory();
-            currentInventory.clear();
-
-            Map<Integer, ContainerElement> elements = new HashMap<>();
-
-            current.build().forEach(x -> {
-                elements.put(x.getSlot(), x);
-                currentInventory.setItem(x.getSlot(), x.getStack());
-            });
-
-            volatileContainer.setItems(elements);
-            volatileContainer.setInventory(currentInventory);
-
-            Protocol.UpdateScreen.builder()
-                    .containerId(ep.bR.j)
-                    .title(current.getTitle())
-                    .windowType(current.getRows().rowsNumber - 1)
-                    .build().send(holder);
+            volatileContainer.update(currentInventory);
 
             holder.updateInventory();
             return;

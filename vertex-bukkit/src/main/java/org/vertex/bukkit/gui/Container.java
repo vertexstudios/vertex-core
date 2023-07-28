@@ -11,11 +11,13 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.jetbrains.annotations.Nullable;
 import org.vertex.bukkit.BukkitPluginContainer;
 import org.vertex.bukkit.subscriber.MultiEventSubscriber;
 import org.vertex.bukkit.subscriber.Subscription;
 import org.vertex.bukkit.pipeline.ConsumerPipeline;
+import org.vertex.core.util.Pair;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -41,7 +43,7 @@ public abstract class Container {
 
     @Getter
     @NonNull
-    protected Map<Integer, Consumer<InventoryClickEvent>> customActions;
+    protected Map<Integer, Pair<ElementAction.Restrictiveness, Consumer<InventoryClickEvent>>> customActions;
 
     @Getter
     @NonNull
@@ -111,30 +113,47 @@ public abstract class Container {
         // InventoryClickEvent
         this.subscriber.attachSubscription(Subscription.create(InventoryClickEvent.class)
                 .withFilter(e -> e.getClickedInventory() != null)
-                .withFilter(e -> e.getInventory().equals(this.inventory))
+                .withFilter(e -> holder.getOpenInventory() != null)
                 .withFilter(e -> e.getWhoClicked() instanceof Player)
                 .withFilter(e -> e.getWhoClicked().getUniqueId().equals(holder.getUniqueId()))
                 .withFilter(e -> this.items != null)
                 .handler(event -> {
+
+                    InventoryView view = holder.getOpenInventory();
+                    Inventory clicked = event.getClickedInventory();
+                    int slot = event.getSlot();
                     event.setCancelled(true);
 
                     if (this.customActions.get(event.getSlot()) != null) {
-                        this.customActions.get(event.getSlot()).accept(event);
+                        ElementAction.Restrictiveness restrictiveness = this.customActions.get(slot).getFirst();
+                        Consumer<InventoryClickEvent> action = this.customActions.get(slot).getSecond();
+
+                        switch(restrictiveness) {
+                            case BOTH:
+                                if(clicked.equals(view.getBottomInventory())) action.accept(event);
+                                break;
+                            case TOP_ONLY:
+                                if(clicked.equals(view.getTopInventory())) action.accept(event);
+                                break;
+                            default:
+                                action.accept(event);
+                        }
                     }
 
-                    Optional<ContainerElement> item = Optional.ofNullable(items.get(event.getSlot()));
+                    Optional<ContainerElement> item = Optional.ofNullable(items.get(slot));
                     if (item.isPresent() && item.get().getStack().equals(event.getCurrentItem())) {
                         Optional.ofNullable(item.get().getAction()).ifPresent(action -> action.click(holder, event));
                     }
+
                 })
         );
 
         this.subscriber.subscribe();
     }
 
-    public void attachCustomActions(Consumer<InventoryClickEvent> action, int... slots) {
+    public void attachCustomActions(ElementAction.Restrictiveness restrictiveness, Consumer<InventoryClickEvent> action, int... slots) {
         for (int i = 0; i < slots.length; i++) {
-            this.customActions.put(slots[i], action);
+            this.customActions.put(slots[i], new Pair<>(restrictiveness, action));
         }
     }
 

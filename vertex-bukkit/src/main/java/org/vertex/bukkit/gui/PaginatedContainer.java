@@ -58,7 +58,7 @@ public abstract class PaginatedContainer {
         return pages.get(index);
     }
 
-    public void openCurrentPage() {
+    public void open() {
         Container current = getCurrentPage();
         if(keepOpen && current instanceof VolatileContainer) {
 

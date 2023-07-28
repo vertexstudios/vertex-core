@@ -3,6 +3,7 @@ package org.vertex.bukkit.gui;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -20,21 +21,40 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public abstract class Container {
-    
-    @Getter @NonNull private Inventory inventory;
-    @Getter @NonNull private Player holder;
-    @Getter @NonNull private Map<Integer, ContainerElement> items;
-    @Getter @NonNull private String title;
-    @Getter @NonNull private Rows rows;
 
-    @Getter @NonNull private Map<Integer, Consumer<InventoryClickEvent>> customActions;
+    @Getter
+    @NonNull
+    protected Inventory inventory;
+    @Getter
+    @NonNull
+    protected Player holder;
+    @Getter
+    @NonNull
+    protected Map<Integer, ContainerElement> items;
+    @Getter
+    @NonNull
+    protected String title;
+    @Getter
+    @NonNull
+    protected Rows rows;
 
-    @Getter @NonNull private ConsumerPipeline<Container> closingPipeline;
-    @Getter @NonNull private ConsumerPipeline<Container> openningPipeline;
+    @Getter
+    @NonNull
+    protected Map<Integer, Consumer<InventoryClickEvent>> customActions;
 
-    @Getter @NonNull private MultiEventSubscriber subscriber;
+    @Getter
+    @NonNull
+    protected ConsumerPipeline<Container> closingPipeline;
+    @Getter
+    @NonNull
+    protected ConsumerPipeline<Container> openningPipeline;
 
-    @Nullable private PaginatedContainer parent;
+    @Getter
+    @NonNull
+    protected MultiEventSubscriber subscriber;
+
+    @Nullable
+    protected PaginatedContainer parent;
 
     public Container(Player holder, String title, Rows rows, PaginatedContainer parent) {
         this(holder, title, rows);
@@ -56,22 +76,35 @@ public abstract class Container {
         // PlayerQuitEvent
         this.subscriber.attachSubscription(Subscription.create(PlayerQuitEvent.class)
                 .withFilter(e -> e.getPlayer().equals(holder))
-                .handler(x -> this.dispose()));
+                .handler(x -> {
+                    this.dispose();
+                    if (this.hasParentContainer()) {
+                        this.getParent().get().getPages().forEach(Container::dispose);
+                    }
+                }));
 
         // InventoryCloseEvent
         this.subscriber.attachSubscription(Subscription.create(InventoryCloseEvent.class)
                 .withFilter(e -> e.getPlayer().equals(holder))
-                .handler(x -> this.dispose()));
+                .handler(x -> {
+                    this.dispose();
+                    if (this.hasParentContainer()) {
+                        this.getParent().get().getPages().forEach(Container::dispose);
+                    }
+                }));
 
         // PluginDisabledEvent
         this.subscriber.attachSubscription(Subscription.create(PluginDisableEvent.class)
                 .withFilter(e -> e.getPlugin() == BukkitPluginContainer.getCurrentPlugin())
                 .handler(e -> {
                     Player p = Bukkit.getPlayer(holder.getUniqueId());
-                    if(p != null) {
+                    if (p != null) {
                         p.closeInventory();
                     }
                     this.dispose();
+                    if (this.hasParentContainer()) {
+                        this.getParent().get().getPages().forEach(Container::dispose);
+                    }
                 }));
 
         // InventoryClickEvent
@@ -84,7 +117,7 @@ public abstract class Container {
                 .handler(event -> {
                     event.setCancelled(true);
 
-                    if(this.customActions.get(event.getSlot()) != null) {
+                    if (this.customActions.get(event.getSlot()) != null) {
                         this.customActions.get(event.getSlot()).accept(event);
                     }
 
@@ -99,7 +132,7 @@ public abstract class Container {
     }
 
     public void attachCustomActions(Consumer<InventoryClickEvent> action, int... slots) {
-        for(int i = 0; i < slots.length; i++) {
+        for (int i = 0; i < slots.length; i++) {
             this.customActions.put(slots[i], action);
         }
     }

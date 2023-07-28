@@ -4,9 +4,12 @@ import lombok.Getter;
 import net.minecraft.server.level.EntityPlayer;
 import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.vertex.bukkit.protocol.Protocol;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class PaginatedContainer {
 
@@ -57,18 +60,35 @@ public abstract class PaginatedContainer {
 
     public void openCurrentPage() {
         Container current = getCurrentPage();
-        if(keepOpen) {
+        if(keepOpen && current instanceof VolatileContainer) {
+
+            VolatileContainer volatileContainer = (VolatileContainer) current;
             EntityPlayer ep = ((CraftPlayer)holder).getHandle();
+
+            Inventory currentInventory = holder.getOpenInventory().getTopInventory();
+            currentInventory.clear();
+
+            Map<Integer, ContainerElement> elements = new HashMap<>();
+
+            current.build().forEach(x -> {
+                elements.put(x.getSlot(), x);
+                currentInventory.setItem(x.getSlot(), x.getStack());
+            });
+
+            volatileContainer.setItems(elements);
+            volatileContainer.setInventory(currentInventory);
+
             Protocol.UpdateScreen.builder()
                     .containerId(ep.bR.j)
                     .title(current.getTitle())
                     .windowType(current.getRows().rowsNumber - 1)
                     .build().send(holder);
+
             holder.updateInventory();
             return;
         }
         this.holder.closeInventory();
-        this.holder.openInventory(this.getCurrentPage().getInventory());
+        this.holder.openInventory(current.getInventory());
     }
 
     public abstract List<Container> buildPages();

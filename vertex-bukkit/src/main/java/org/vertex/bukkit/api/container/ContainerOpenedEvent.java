@@ -1,6 +1,5 @@
 package org.vertex.bukkit.api.container;
 
-import lombok.Getter;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.vertex.bukkit.gui.Container;

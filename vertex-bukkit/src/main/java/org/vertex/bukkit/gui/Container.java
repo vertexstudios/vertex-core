@@ -14,10 +14,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.jetbrains.annotations.Nullable;
 import org.vertex.bukkit.BukkitPluginContainer;
+import org.vertex.bukkit.pipeline.ConsumerPipeline;
 import org.vertex.bukkit.subscriber.MultiEventSubscriber;
 import org.vertex.bukkit.subscriber.Subscription;
-import org.vertex.bukkit.pipeline.ConsumerPipeline;
-import org.vertex.core.util.Pair;
+import org.vertex.bukkit.util.Optionals;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -43,7 +43,11 @@ public abstract class Container {
 
     @Getter
     @NonNull
-    protected Map<Integer, Pair<ElementAction.Restrictiveness, Consumer<InventoryClickEvent>>> customActions;
+    protected Map<Integer, Consumer<InventoryClickEvent>> topInventoryActions;
+
+    @Getter
+    @NonNull
+    protected Map<Integer, Consumer<InventoryClickEvent>> bottomInventoryActions;
 
     @Getter
     @NonNull
@@ -70,9 +74,12 @@ public abstract class Container {
         this.title = title;
         this.rows = rows;
         this.inventory = Bukkit.createInventory(null, rows.slots, title);
+
         this.closingPipeline = new ConsumerPipeline<>();
         this.openningPipeline = new ConsumerPipeline<>();
-        this.customActions = new HashMap<>();
+
+        this.topInventoryActions = new HashMap<>();
+        this.bottomInventoryActions = new HashMap<>();
 
         this.subscriber = MultiEventSubscriber.create(BukkitPluginContainer.getCurrentPlugin());
 
@@ -114,6 +121,8 @@ public abstract class Container {
         this.subscriber.attachSubscription(Subscription.create(InventoryClickEvent.class)
                 .withFilter(e -> e.getClickedInventory() != null)
                 .withFilter(e -> holder.getOpenInventory() != null)
+                .withFilter(e -> e.getView().getTopInventory().equals(this.inventory))
+                .withFilter(e -> e.getClickedInventory().equals(e.getView().getBottomInventory()) || e.getClickedInventory().equals(e.getView().getTopInventory()))
                 .withFilter(e -> e.getWhoClicked() instanceof Player)
                 .withFilter(e -> e.getWhoClicked().getUniqueId().equals(holder.getUniqueId()))
                 .withFilter(e -> this.items != null)
@@ -124,20 +133,18 @@ public abstract class Container {
                     int slot = event.getSlot();
                     event.setCancelled(true);
 
-                    if (this.customActions.get(event.getSlot()) != null) {
-                        ElementAction.Restrictiveness restrictiveness = this.customActions.get(slot).getFirst();
-                        Consumer<InventoryClickEvent> action = this.customActions.get(slot).getSecond();
+                    if(clicked.equals(view.getBottomInventory())) {
+                        Optionals.optionalSupplier(() -> this.bottomInventoryActions.get(slot))
+                                .ifPresent(x -> x.accept(event));
+                        Optionals.optionalSupplier(() -> this.bottomInventoryActions.get(Slots.ANY))
+                                .ifPresent(x -> x.accept(event));
+                    }
 
-                        switch(restrictiveness) {
-                            case BOTH:
-                                if(clicked.equals(view.getBottomInventory())) action.accept(event);
-                                break;
-                            case TOP_ONLY:
-                                if(clicked.equals(view.getTopInventory())) action.accept(event);
-                                break;
-                            default:
-                                action.accept(event);
-                        }
+                    if(clicked.equals(view.getTopInventory())) {
+                        Optionals.optionalSupplier(() -> this.topInventoryActions.get(slot))
+                                .ifPresent(x -> x.accept(event));
+                        Optionals.optionalSupplier(() -> this.topInventoryActions.get(Slots.ANY))
+                                .ifPresent(x -> x.accept(event));
                     }
 
                     Optional<ContainerElement> item = Optional.ofNullable(items.get(slot));
@@ -153,7 +160,18 @@ public abstract class Container {
 
     public void attachCustomActions(ElementAction.Restrictiveness restrictiveness, Consumer<InventoryClickEvent> action, int... slots) {
         for (int i = 0; i < slots.length; i++) {
-            this.customActions.put(slots[i], new Pair<>(restrictiveness, action));
+            switch(restrictiveness) {
+                case TOP_ONLY:
+                    this.topInventoryActions.put(slots[i], action);
+                    break;
+                case BOTTOM_ONLY:
+                    this.bottomInventoryActions.put(slots[i], action);
+                    break;
+                case BOTH:
+                    this.bottomInventoryActions.put(slots[i], action);
+                    this.topInventoryActions.put(slots[i], action);
+                    break;
+            }
         }
     }
 

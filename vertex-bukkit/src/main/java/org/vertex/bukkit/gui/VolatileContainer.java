@@ -3,13 +3,11 @@ package org.vertex.bukkit.gui;
 import net.minecraft.server.level.EntityPlayer;
 import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.vertex.bukkit.protocol.Protocol;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 
 // Volatile containers are used to create non static inventories that can be changed on the fly.
 public abstract class VolatileContainer extends Container {

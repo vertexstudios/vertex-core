@@ -1,15 +1,10 @@
 package org.vertex.bukkit.gui;
 
 import lombok.Getter;
-import net.minecraft.server.level.EntityPlayer;
-import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.vertex.bukkit.protocol.Protocol;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public abstract class PaginatedContainer {
 

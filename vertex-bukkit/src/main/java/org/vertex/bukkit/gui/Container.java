@@ -122,7 +122,7 @@ public abstract class Container {
                 .withFilter(e -> e.getClickedInventory() != null)
                 .withFilter(e -> holder.getOpenInventory() != null)
                 .withFilter(e -> e.getView().getTopInventory().equals(this.inventory))
-                .withFilter(e -> e.getClickedInventory().equals(e.getView().getBottomInventory()) || e.getClickedInventory().equals(e.getView().getTopInventory()))
+                .withFilter(e -> Objects.equals(e.getClickedInventory(), e.getView().getBottomInventory()) || e.getClickedInventory().equals(e.getView().getTopInventory()))
                 .withFilter(e -> e.getWhoClicked() instanceof Player)
                 .withFilter(e -> e.getWhoClicked().getUniqueId().equals(holder.getUniqueId()))
                 .withFilter(e -> this.items != null)
@@ -160,18 +160,14 @@ public abstract class Container {
     }
 
     public void attachCustomActions(ElementAction.Restrictiveness restrictiveness, Consumer<InventoryClickEvent> action, int... slots) {
-        for (int i = 0; i < slots.length; i++) {
-            switch(restrictiveness) {
-                case TOP_ONLY:
-                    this.topInventoryActions.put(slots[i], action);
-                    break;
-                case BOTTOM_ONLY:
-                    this.bottomInventoryActions.put(slots[i], action);
-                    break;
-                case BOTH:
-                    this.bottomInventoryActions.put(slots[i], action);
-                    this.topInventoryActions.put(slots[i], action);
-                    break;
+        for (int slot : slots) {
+            switch (restrictiveness) {
+                case TOP_ONLY -> this.topInventoryActions.put(slot, action);
+                case BOTTOM_ONLY -> this.bottomInventoryActions.put(slot, action);
+                case BOTH -> {
+                    this.bottomInventoryActions.put(slot, action);
+                    this.topInventoryActions.put(slot, action);
+                }
             }
         }
     }
@@ -222,10 +218,10 @@ public abstract class Container {
         FIVE(45, 5),
         SIX(54, 6);
 
-        public int slots;
+        public final int slots;
 
         @Getter
-        public int rowsNumber;
+        public final int rowsNumber;
 
         public static Rows byRowsNumber(int number) {
             return Arrays.stream(values()).filter(x -> x.rowsNumber == number).findFirst().get();

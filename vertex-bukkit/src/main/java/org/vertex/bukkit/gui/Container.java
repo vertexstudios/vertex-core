@@ -14,10 +14,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.jetbrains.annotations.Nullable;
 import org.vertex.bukkit.BukkitPluginContainer;
+import org.vertex.bukkit.delegate.Delegates;
 import org.vertex.bukkit.pipeline.ConsumerPipeline;
 import org.vertex.bukkit.subscriber.MultiEventSubscriber;
 import org.vertex.bukkit.subscriber.Subscription;
-import org.vertex.bukkit.util.Optionals;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -134,22 +134,23 @@ public abstract class Container {
                     event.setCancelled(true);
 
                     if(clicked.equals(view.getBottomInventory())) {
-                        Optionals.optionalSupplier(() -> this.bottomInventoryActions.get(slot))
+                        Delegates.optionalSupplier(() -> this.bottomInventoryActions.get(slot))
                                 .ifPresent(x -> x.accept(event));
-                        Optionals.optionalSupplier(() -> this.bottomInventoryActions.get(Slots.ANY))
+                        Delegates.optionalSupplier(() -> this.bottomInventoryActions.get(Slots.ANY))
                                 .ifPresent(x -> x.accept(event));
                     }
 
                     if(clicked.equals(view.getTopInventory())) {
-                        Optionals.optionalSupplier(() -> this.topInventoryActions.get(slot))
+                        Delegates.optionalSupplier(() -> this.topInventoryActions.get(slot))
                                 .ifPresent(x -> x.accept(event));
-                        Optionals.optionalSupplier(() -> this.topInventoryActions.get(Slots.ANY))
+                        Delegates.optionalSupplier(() -> this.topInventoryActions.get(Slots.ANY))
                                 .ifPresent(x -> x.accept(event));
                     }
 
                     Optional<ContainerElement> item = Optional.ofNullable(items.get(slot));
                     if (item.isPresent() && item.get().getStack().equals(event.getCurrentItem())) {
-                        Optional.ofNullable(item.get().getAction()).ifPresent(action -> action.click(holder, event));
+                        Optional.ofNullable(item.get().getAction())
+                                .ifPresent(action -> action.click(holder, event));
                     }
 
                 })

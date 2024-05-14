@@ -18,6 +18,7 @@ public abstract class PaginatedContainer {
         this.holder = holder;
         this.loop = loop;
         this.keepOpen = keepOpen;
+        this.pages = buildPages();
     }
 
     public PaginatedContainer(Player holder, boolean loop, boolean keepOpen, int index) {
@@ -66,7 +67,7 @@ public abstract class PaginatedContainer {
             return;
         }
         this.holder.closeInventory();
-        this.holder.openInventory(current.getInventory());
+        this.holder.openInventory(current.inventory);
     }
 
     public abstract List<Container> buildPages();

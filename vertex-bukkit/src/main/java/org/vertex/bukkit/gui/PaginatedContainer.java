@@ -66,7 +66,6 @@ public abstract class PaginatedContainer {
             holder.updateInventory();
             return;
         }
-        this.holder.closeInventory();
         current.open();
     }
 

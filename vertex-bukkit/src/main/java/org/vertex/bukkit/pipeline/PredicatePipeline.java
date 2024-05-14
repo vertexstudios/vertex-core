@@ -14,7 +14,10 @@ public class PredicatePipeline<T> extends AbstractPipeline<Predicate<T>> {
                 return false;
             }
         }
-        return then.test(arg);
+        if(then != null) {
+            return then.test(arg);
+        }
+        return true;
     }
 
 }

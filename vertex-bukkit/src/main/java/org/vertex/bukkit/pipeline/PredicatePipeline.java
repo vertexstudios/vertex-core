@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 public class PredicatePipeline<T> extends AbstractPipeline<Predicate<T>> {
 
     public boolean test (T arg) {
-        if(!before.test(arg)) {
+        if(before != null && !before.test(arg)) {
             return false;
         }
         while(!pipeline.isEmpty()) {

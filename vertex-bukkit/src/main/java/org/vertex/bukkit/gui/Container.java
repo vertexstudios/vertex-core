@@ -97,6 +97,7 @@ public abstract class Container {
         // InventoryCloseEvent
         this.subscriber.attachSubscription(Subscription.create(InventoryCloseEvent.class)
                 .withFilter(e -> e.getPlayer().equals(holder))
+                        .withFilter(x -> x.getInventory().equals(this.inventory))
                 .handler(x -> {
                     this.dispose();
                     System.out.println("INVENTORY CLOSE");

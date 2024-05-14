@@ -181,9 +181,10 @@ public abstract class Container {
     }
 
     public void open() {
-        if (holder == null) {
+        if (this.holder == null) {
             return;
         }
+        System.out.println("HOLDER NAO É NULL");
         if (this.inventory == null) {
             this.inventory = Bukkit.createInventory(null, this.rows.slots, this.title);
         }
@@ -202,7 +203,6 @@ public abstract class Container {
     public void dispose() {
         this.subscriber.dispose();
         this.inventory = null;
-        this.holder = null;
         this.items = null;
     }
 

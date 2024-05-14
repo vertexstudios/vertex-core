@@ -66,7 +66,8 @@ public abstract class PaginatedContainer {
             holder.updateInventory();
             return;
         }
-        getCurrentPage().open();
+        this.holder.closeInventory();
+        current.open();
     }
 
     public abstract List<Container> buildPages();

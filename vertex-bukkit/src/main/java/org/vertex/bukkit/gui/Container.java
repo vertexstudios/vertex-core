@@ -188,7 +188,6 @@ public abstract class Container {
             this.inventory = Bukkit.createInventory(null, this.rows.slots, this.title);
         }
         this.placeElements();
-        holder.closeInventory();
         holder.openInventory(this.inventory);
     }
 

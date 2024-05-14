@@ -209,7 +209,6 @@ public abstract class Container {
 
     public abstract List<ContainerElement> build();
 
-    @AllArgsConstructor
     public enum Rows {
         ONE(9, 1),
         TWO(18, 2),
@@ -220,8 +219,17 @@ public abstract class Container {
 
         public final int slots;
 
-        @Getter
         public final int rowsNumber;
+
+
+        Rows(int slots, int rowsNumber) {
+            this.slots = slots;
+            this.rowsNumber = rowsNumber;
+        }
+
+        public int getRowsNumber() {
+            return rowsNumber;
+        }
 
         public static Rows byRowsNumber(int number) {
             return Arrays.stream(values()).filter(x -> x.rowsNumber == number).findFirst().get();

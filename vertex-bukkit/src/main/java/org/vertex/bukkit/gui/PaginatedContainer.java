@@ -8,11 +8,11 @@ import java.util.List;
 
 public abstract class PaginatedContainer {
 
-    @Getter private List<Container> pages;
-    @Getter private Player holder;
-    @Getter private boolean loop;
-    @Getter private boolean keepOpen;
-    @Getter private int index = 0;
+    private List<Container> pages;
+    private Player holder;
+    private boolean loop;
+    private boolean keepOpen;
+    private int index = 0;
 
     public PaginatedContainer(Player holder, boolean loop, boolean keepOpen) {
         this.holder = holder;
@@ -36,6 +36,18 @@ public abstract class PaginatedContainer {
             return;
         }
         index = index + 1;
+    }
+
+    public List<Container> getPages() {
+        return pages;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public Player getHolder() {
+        return holder;
     }
 
     public void previous() {

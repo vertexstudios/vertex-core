@@ -10,12 +10,28 @@ import java.util.function.Predicate;
 
 public class Subscription<T extends Event> {
 
-    @Getter private PredicatePipeline<T> filters = new PredicatePipeline<>();
-    @Getter private Consumer<T> handler;
-    @Getter private Class<T> handled;
-    @Getter private EventPriority priority;
+    private PredicatePipeline<T> filters = new PredicatePipeline<>();
+    private Consumer<T> handler;
+    private Class<T> handled;
+    private EventPriority priority = EventPriority.NORMAL;
     private boolean handleSubclasses;
-    @Getter private boolean ignoreCanceled = false;
+    private boolean ignoreCanceled = false;
+
+    public PredicatePipeline<T> getFilters() {
+        return filters;
+    }
+
+    public Class<T> getHandled() {
+        return handled;
+    }
+
+    public Consumer<T> getHandler() {
+        return handler;
+    }
+
+    public EventPriority getPriority() {
+        return priority;
+    }
 
     public static <U extends Event>  Subscription<U> create(Class<U> event) {
         return new Subscription<>(event);

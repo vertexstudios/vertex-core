@@ -5,11 +5,28 @@ import lombok.Builder;
 import lombok.Getter;
 import org.bukkit.inventory.ItemStack;
 
-@AllArgsConstructor
 @Builder
 
 public class ContainerElement {
-    @Getter private int slot;
-    @Getter private ElementAction action;
-    @Getter private ItemStack stack;
+    private int slot;
+    private ElementAction action;
+    private ItemStack stack;
+
+    public ContainerElement(int slot, ElementAction action, ItemStack stack) {
+        this.slot = slot;
+        this.action = action;
+        this.stack = stack;
+    }
+
+    public int getSlot() {
+        return slot;
+    }
+
+    public ItemStack getStack() {
+        return stack;
+    }
+
+    public ElementAction getAction() {
+        return action;
+    }
 }

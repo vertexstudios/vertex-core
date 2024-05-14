@@ -50,7 +50,7 @@ public class SimpleEventSubscriber<T extends Event> implements Subscriber {
 
     @Override
     public void subscribe() {
-        Bukkit.getPluginManager().registerEvent(this.getSubscription().getHandled(), this, this.subscription.getPriority(), this, plugin, false);
+        Bukkit.getPluginManager().registerEvent(this.subscription.getHandled(), this, this.subscription.getPriority(), this, plugin, false);
     }
 
     @Override

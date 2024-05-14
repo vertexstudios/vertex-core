@@ -7,16 +7,23 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.vertex.bukkit.gui.Container;
 
-@AllArgsConstructor
 public class ContainerEvent extends Event {
 
-    @Getter private Container container;
+    private Container container;
     private static HandlerList handlerList = new HandlerList();
+
+    public ContainerEvent(Container container) {
+        this.container = container;
+    }
 
     @NotNull
     @Override
     public HandlerList getHandlers() {
         return handlerList;
+    }
+
+    public Container getContainer() {
+        return container;
     }
 
     public static HandlerList getHandlerList() {

@@ -88,7 +88,6 @@ public abstract class Container {
                 .withFilter(e -> e.getPlayer().equals(holder))
                 .handler(x -> {
                     this.dispose();
-                    System.out.println("PLAYER QUIT");
                     if (this.hasParentContainer()) {
                         this.getParent().get().getPages().forEach(Container::dispose);
                     }
@@ -97,14 +96,8 @@ public abstract class Container {
         // InventoryCloseEvent
         this.subscriber.attachSubscription(Subscription.create(InventoryCloseEvent.class)
                 .withFilter(e -> e.getPlayer().equals(holder))
-                        .withFilter(x -> x.getInventory().equals(this.inventory))
-                .handler(x -> {
-                    this.dispose();
-                    System.out.println("INVENTORY CLOSE");
-                    if (this.hasParentContainer()) {
-                        this.getParent().get().getPages().forEach(Container::dispose);
-                    }
-                }));
+                .withFilter(x -> x.getInventory().equals(this.inventory))
+                .handler(x -> this.dispose()));
 
         // PluginDisabledEvent
         this.subscriber.attachSubscription(Subscription.create(PluginDisableEvent.class)
@@ -114,7 +107,6 @@ public abstract class Container {
                     if (p != null) {
                         p.closeInventory();
                     }
-                    System.out.println("PLUGIN DISABLE");
                     this.dispose();
                     if (this.hasParentContainer()) {
                         this.getParent().get().getPages().forEach(Container::dispose);

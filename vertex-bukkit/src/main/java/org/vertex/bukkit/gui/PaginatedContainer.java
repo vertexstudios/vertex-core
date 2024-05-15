@@ -69,6 +69,16 @@ public abstract class PaginatedContainer {
         current.open();
     }
 
+    public void openNextPage() {
+        this.next();
+        this.open();
+    }
+
+    public void openPreviousPage() {
+        this.previous();
+        this.open();
+    }
+
     public abstract List<Container> buildPages();
 
 }

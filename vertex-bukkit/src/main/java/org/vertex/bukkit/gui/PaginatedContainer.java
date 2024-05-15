@@ -13,10 +13,12 @@ public abstract class PaginatedContainer {
     @Getter private boolean loop;
     @Getter private boolean keepOpen;
     @Getter private int index = 0;
+    private boolean transitioning;
 
     public PaginatedContainer(Player holder, boolean loop, boolean keepOpen) {
         this.holder = holder;
         this.loop = loop;
+        this.transitioning = false;
         this.keepOpen = keepOpen;
         this.pages = buildPages();
     }
@@ -66,7 +68,21 @@ public abstract class PaginatedContainer {
             holder.updateInventory();
             return;
         }
+        transitioning = true;
+        holder.closeInventory();
         current.open();
+    }
+
+    public boolean isTransitioning() {
+        return transitioning;
+    }
+
+    public void setTransitioning(boolean t) {
+        this.transitioning = t;
+    }
+
+    public void disposeAll() {
+        this.pages.forEach(Container::dispose);
     }
 
     public void openNextPage() {

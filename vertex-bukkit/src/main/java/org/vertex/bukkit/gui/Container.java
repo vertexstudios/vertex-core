@@ -97,7 +97,18 @@ public abstract class Container {
         this.subscriber.attachSubscription(Subscription.create(InventoryCloseEvent.class)
                 .withFilter(e -> e.getPlayer().equals(holder))
                 .withFilter(x -> x.getInventory().equals(this.inventory))
-                .handler(x -> this.dispose()));
+                .handler(x -> {
+                    if(this.hasParentContainer()) {
+                        PaginatedContainer parent = this.getParent().get();
+                        if(parent.isTransitioning()) {
+                            parent.setTransitioning(false);
+                        } else {
+                            parent.disposeAll();
+                        }
+                    } else {
+                        this.dispose();
+                    }
+                }));
 
         // PluginDisabledEvent
         this.subscriber.attachSubscription(Subscription.create(PluginDisableEvent.class)
@@ -180,12 +191,10 @@ public abstract class Container {
         if (this.holder == null) {
             return;
         }
-        System.out.println("HOLDER NAO É NULL");
         if (this.inventory == null) {
             this.inventory = Bukkit.createInventory(null, this.rows.slots, this.title);
         }
         this.placeElements();
-        holder.closeInventory();
         holder.openInventory(this.inventory);
     }
 

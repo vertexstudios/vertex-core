@@ -180,11 +180,11 @@ public abstract class Container {
         if (this.holder == null) {
             return;
         }
-        System.out.println("HOLDER NAO É NULL");
         if (this.inventory == null) {
             this.inventory = Bukkit.createInventory(null, this.rows.slots, this.title);
         }
         this.placeElements();
+        holder.closeInventory();
         holder.openInventory(this.inventory);
     }
 
